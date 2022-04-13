@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("userService")
+@Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 

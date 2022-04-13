@@ -1,6 +1,7 @@
 package com.ymchen.ranniservice.order.controller;
 
 
+import com.ymchen.rannibase.dto.order.OrderDTO;
 import com.ymchen.rannibase.entity.order.Order;
 import com.ymchen.ranniservice.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,14 @@ public class OrderController {
         return orderService.getOrdersByUser(userId);
     }
 
+    @GetMapping("getOrderDetail")
+    public OrderDTO getOrderDetail(@RequestParam("orderId") Long orderId) {
+        return orderService.getOrderDetail(orderId);
+    }
+
+    @GetMapping("createOrder")
+    public void createOrder(@RequestParam("userId") Long userId) {
+        orderService.createOrder(userId);
+    }
 
 }

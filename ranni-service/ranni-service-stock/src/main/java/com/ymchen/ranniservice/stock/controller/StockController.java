@@ -20,4 +20,9 @@ public class StockController {
     public Stock getById(@RequestParam("stockId") Long stockId) {
         return stockService.getById(stockId);
     }
+
+    @GetMapping("deduct")
+    public void deduct(@RequestParam("goodsNo") String goodsNo) {
+        stockService.deduct(goodsNo);
+    }
 }

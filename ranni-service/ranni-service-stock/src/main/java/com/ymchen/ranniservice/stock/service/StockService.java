@@ -6,4 +6,6 @@ import com.ymchen.rannibase.entity.stock.Stock;
 public interface StockService extends IService<Stock> {
 
     Stock getById(Long stockId);
+
+    void deduct(String goodsNo);
 }

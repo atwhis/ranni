@@ -45,5 +45,10 @@ public class TestController {
         return testService.getUserOrders(userId);
     }
 
+    @GetMapping("createOrder")
+    public Object createOrderAndDeduct(@RequestParam("userId") Long userId, @RequestParam("goodsNo") String goodsNo) {
+        testService.createOrderAndDeduct(userId, goodsNo);
+        return "hello";
+    }
 
 }

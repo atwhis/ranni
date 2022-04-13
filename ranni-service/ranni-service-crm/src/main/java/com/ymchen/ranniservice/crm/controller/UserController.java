@@ -25,12 +25,6 @@ public class UserController {
 
     @GetMapping("getById")
     public User getById(@RequestParam("userId") Integer userId) {
-
-        try {
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         User user = userService.getById(userId);
         return user;
     }
