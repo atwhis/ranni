@@ -5,7 +5,6 @@ import com.ymchen.ranniservice.crm.entity.User;
 import com.ymchen.ranniservice.crm.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,27 +22,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @Value("${member.base.name}")
-    private String memberName;
-
-    @Value("${member.addr.city}")
-    private String memberCity;
-
-
-    @GetMapping("log")
-    public Object testLog() {
-        log.error("test log......error");
-        log.info("test log......info");
-        log.warn("test log......warn");
-        log.debug("test log......debug");
-
-        return "hello world";
-    }
-
-    @GetMapping("getInfo")
-    public void getInfo() {
-        log.error("memberName:{} , memberCity:{}", memberName, memberCity);
-    }
 
     @GetMapping("getById")
     public User getById(@RequestParam("userId") Integer userId) {

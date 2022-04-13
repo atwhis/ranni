@@ -14,6 +14,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>ranni-service</name>
     <packaging>pom</packaging>
-    <description>Demo project for Spring Boot</description>
+
+    <modules>
+        <module>ranni-service-api</module>
+        <module>ranni-service-crm</module>
+        <module>ranni-service-order</module>
+        <module>ranni-service-stock</module>
+    </modules>
 
 </project>

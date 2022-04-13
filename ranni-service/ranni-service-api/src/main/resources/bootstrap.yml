@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ranni-service-api
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.url}:8848
+        group: ranni
+        prefix: ranni-service-api
+        file-extension: yaml
+      discovery:
+        server-addr: ${nacos.url}:8848
