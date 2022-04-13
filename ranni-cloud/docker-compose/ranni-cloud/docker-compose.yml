@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  ranni-service-crm:
+    image: ranni-crm:latest
+    container_name: ranni-crm
+    volumes:
+      - "~/log:/log"
+    command:
+      - "--nacos.url=10.44.1.133"
+      - "--mysql.url=10.44.1.155"
+    environment:
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 8861:8861
+    restart: on-failure

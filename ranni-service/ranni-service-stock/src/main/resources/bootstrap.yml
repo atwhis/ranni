@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: ranni-service-stock
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.url}:8848
+        group: ranni
+        prefix: ranni-service-stock
+        file-extension: yaml
+      discovery:
+        server-addr: ${nacos.url}:8848
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          actuate:
+            endpoint:
+              EndpointId: error
+    com:
+      alibaba:
+        cloud:
+          nacos:
+            client:
+              NacosPropertySourceBuilder: error

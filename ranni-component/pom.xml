@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ymchen</groupId>
+        <artifactId>ranni-cloud</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../ranni-cloud/pom.xml</relativePath>
+    </parent>
+    <groupId>com.ymchen</groupId>
+    <artifactId>ranni-component</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ranni-component</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>ranni-base</module>
+        <module>ranni-component-redis-starter</module>
+        <module>ranni-component-log-starter</module>
+    </modules>
+
+</project>
