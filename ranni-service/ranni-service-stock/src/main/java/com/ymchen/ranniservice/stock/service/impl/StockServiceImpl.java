@@ -1,7 +1,7 @@
 package com.ymchen.ranniservice.stock.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ymchen.ranniservice.stock.entity.Stock;
+import com.ymchen.rannibase.entity.stock.Stock;
 import com.ymchen.ranniservice.stock.mapper.StockMapper;
 import com.ymchen.ranniservice.stock.service.StockService;
 import org.springframework.stereotype.Service;

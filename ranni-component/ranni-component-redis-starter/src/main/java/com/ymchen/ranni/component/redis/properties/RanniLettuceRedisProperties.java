@@ -19,10 +19,5 @@ public class RanniLettuceRedisProperties {
         this.enable = enable;
     }
 
-    @Override
-    public String toString() {
-        return "FebsLettuceRedisProperties{" +
-                "enable=" + enable +
-                '}';
-    }
+
 }

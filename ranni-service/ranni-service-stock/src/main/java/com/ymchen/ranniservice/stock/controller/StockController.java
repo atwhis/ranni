@@ -1,7 +1,7 @@
 package com.ymchen.ranniservice.stock.controller;
 
 
-import com.ymchen.ranniservice.stock.entity.Stock;
+import com.ymchen.rannibase.entity.stock.Stock;
 import com.ymchen.ranniservice.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

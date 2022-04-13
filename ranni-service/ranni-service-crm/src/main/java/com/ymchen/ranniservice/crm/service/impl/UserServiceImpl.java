@@ -1,7 +1,7 @@
 package com.ymchen.ranniservice.crm.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ymchen.ranniservice.crm.entity.User;
+import com.ymchen.rannibase.entity.crm.User;
 import com.ymchen.ranniservice.crm.mapper.UserMapper;
 import com.ymchen.ranniservice.crm.service.UserService;
 import org.springframework.stereotype.Service;

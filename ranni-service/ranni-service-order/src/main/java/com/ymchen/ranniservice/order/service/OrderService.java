@@ -1,9 +1,13 @@
 package com.ymchen.ranniservice.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ymchen.ranniservice.order.entity.Order;
+import com.ymchen.rannibase.entity.order.Order;
+
+import java.util.List;
 
 public interface OrderService extends IService<Order> {
 
     public Order getById(Long orderId);
+
+    public List<Order> getOrdersByUser(Long userId);
 }

@@ -1,7 +1,7 @@
 package com.ymchen.ranniservice.crm.controller;
 
 
-import com.ymchen.ranniservice.crm.entity.User;
+import com.ymchen.rannibase.entity.crm.User;
 import com.ymchen.ranniservice.crm.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +25,12 @@ public class UserController {
 
     @GetMapping("getById")
     public User getById(@RequestParam("userId") Integer userId) {
+
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         User user = userService.getById(userId);
         return user;
     }

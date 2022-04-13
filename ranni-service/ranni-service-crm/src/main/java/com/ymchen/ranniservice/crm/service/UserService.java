@@ -1,7 +1,7 @@
 package com.ymchen.ranniservice.crm.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ymchen.ranniservice.crm.entity.User;
+import com.ymchen.rannibase.entity.crm.User;
 
 import java.util.List;
 

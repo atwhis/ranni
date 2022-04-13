@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 
 @EnableConfigurationProperties(RanniLettuceRedisProperties.class)
-@ConditionalOnProperty(value = "febs.lettuce.redis.enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(value = "ranni.lettuce.redis.enable", havingValue = "true", matchIfMissing = true)
 public class RanniLettuceRedisAutoConfigure {
 
 
