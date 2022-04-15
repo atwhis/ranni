@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
+@EnableDiscoveryClient
 @MapperScan("com.ymchen.ranniservice.stock.mapper")
 public class RanniServiceStockApplication {
 

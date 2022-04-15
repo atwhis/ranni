@@ -28,7 +28,6 @@ public class TestServiceImpl implements TestService {
 
     private final StockRemoteService stockRemoteService;
 
-
     @Transactional
     @Override
     public void createOrderAndDeduct(Long userId, String goodsNo) {

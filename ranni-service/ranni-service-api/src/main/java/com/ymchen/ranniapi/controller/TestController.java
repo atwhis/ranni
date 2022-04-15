@@ -1,6 +1,7 @@
 package com.ymchen.ranniapi.controller;
 
 import com.ymchen.ranniapi.service.TestService;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,10 +46,11 @@ public class TestController {
         return testService.getUserOrders(userId);
     }
 
+    @GlobalTransactional
     @GetMapping("createOrder")
     public Object createOrderAndDeduct(@RequestParam("userId") Long userId, @RequestParam("goodsNo") String goodsNo) {
         testService.createOrderAndDeduct(userId, goodsNo);
-        return "hello";
+        return "hello1";
     }
 
 }

@@ -15,6 +15,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.ymchen</groupId>
             <artifactId>ranni-base</artifactId>
             <version>0.0.1-SNAPSHOT</version>

@@ -8,6 +8,7 @@ import com.ymchen.ranniservice.stock.mapper.StockMapper;
 import com.ymchen.ranniservice.stock.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -22,7 +23,7 @@ public class StockServiceImpl extends ServiceImpl<StockMapper, Stock> implements
         return baseMapper.selectById(stockId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deduct(String goodsNo) {
 

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 public class StockRemoteServiceFallback implements FallbackFactory<StockRemoteService> {
     @Override
     public StockRemoteService create(Throwable throwable) {
-        return goodsNo -> {
+        throw new RuntimeException("扣减库存失败，回滚...");
+        /*return goodsNo -> {
             log.error("调用扣减库存失败", throwable);
-        };
+            throw new RuntimeException("调用扣减库存失败");
+        };*/
     }
 }

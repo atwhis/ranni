@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = RanniApplicationConstant.RANNI_SERVICE_STOCK, contextId = "stockRemoteService1", fallbackFactory = StockRemoteServiceFallback.class)
+@FeignClient(value = RanniApplicationConstant.RANNI_SERVICE_STOCK, contextId = "stockRemoteService",fallbackFactory = StockRemoteServiceFallback.class)
 public interface StockRemoteService {
 
     @GetMapping("/stock/deduct")

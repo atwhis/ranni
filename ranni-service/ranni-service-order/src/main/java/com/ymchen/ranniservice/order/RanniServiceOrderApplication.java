@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan("com.ymchen.ranniservice.order.mapper")
 @EnableFeignClients
+@EnableDiscoveryClient
 public class RanniServiceOrderApplication {
 
     public static void main(String[] args) {
