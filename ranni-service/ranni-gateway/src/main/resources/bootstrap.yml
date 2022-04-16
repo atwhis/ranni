@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: ranni-gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.url}:8848
+        group: ranni
+        prefix: ranni-gateway
+        file-extension: yaml
+      discovery:
+        server-addr: ${nacos.url}:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: service-order
+          uri: lb://ranni-service-order
+          predicates:
+            - Path=/order/**
+        - id: service-crm
+          uri: lb://ranni-service-crm
+          predicates:
+            - Path=/user/**
+        - id: service-stock
+          uri: lb://ranni-service-stock
+          predicates:
+            - Path=/stock/**
+        - id: service-api
+          uri: lb://ranni-service-api
+          predicates:
+            - Path=/api/**
+          filters:
+            - ParticularFilter
+logging:
+  level:
+    root: info

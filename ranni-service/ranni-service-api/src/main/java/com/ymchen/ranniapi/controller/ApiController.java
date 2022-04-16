@@ -1,6 +1,6 @@
 package com.ymchen.ranniapi.controller;
 
-import com.ymchen.ranniapi.service.TestService;
+import com.ymchen.ranniapi.service.ApiService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("test")
+@RequestMapping("api")
 @RefreshScope
 @RequiredArgsConstructor
-public class TestController {
+public class ApiController {
 
-    private final TestService testService;
+    private final ApiService apiService;
 
     @Value("${member.base.name}")
     private String memberName;
@@ -43,13 +43,13 @@ public class TestController {
 
     @GetMapping("getUserOrders")
     public Object getUserOrders(@RequestParam("userId") Long userId) {
-        return testService.getUserOrders(userId);
+        return apiService.getUserOrders(userId);
     }
 
     @GlobalTransactional
     @GetMapping("createOrder")
     public Object createOrderAndDeduct(@RequestParam("userId") Long userId, @RequestParam("goodsNo") String goodsNo) {
-        testService.createOrderAndDeduct(userId, goodsNo);
+        apiService.createOrderAndDeduct(userId, goodsNo);
         return "hello1";
     }
 

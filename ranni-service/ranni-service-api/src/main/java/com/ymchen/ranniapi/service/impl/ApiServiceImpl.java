@@ -3,7 +3,7 @@ package com.ymchen.ranniapi.service.impl;
 import com.ymchen.ranniapi.remote.OrderRemoteService;
 import com.ymchen.ranniapi.remote.StockRemoteService;
 import com.ymchen.ranniapi.remote.UserRemoteService;
-import com.ymchen.ranniapi.service.TestService;
+import com.ymchen.ranniapi.service.ApiService;
 import com.ymchen.rannibase.dto.api.UserOrderDTO;
 import com.ymchen.rannibase.dto.order.OrderDTO;
 import com.ymchen.rannibase.entity.crm.User;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class TestServiceImpl implements TestService {
+public class ApiServiceImpl implements ApiService {
 
     private final UserRemoteService userRemoteService;
 

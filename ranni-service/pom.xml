@@ -16,6 +16,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>ranni-gateway</module>
         <module>ranni-service-api</module>
         <module>ranni-service-crm</module>
         <module>ranni-service-order</module>
