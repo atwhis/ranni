@@ -14,6 +14,13 @@ spring:
       discovery:
         locator:
           enabled: true
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
       routes:
         - id: service-order
           uri: lb://ranni-service-order
@@ -33,6 +40,24 @@ spring:
             - Path=/api/**
           filters:
             - ParticularFilter
+            - name: Hystrix
+              args:
+                name: timeOutFallback #apiFallbackFallback
+                fallbackUri: forward:/fallback/ranni-service-api
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+    apiFallbackFallback:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+
 logging:
   level:
     root: info
