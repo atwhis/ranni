@@ -19,6 +19,7 @@ logging:
     root: info
 
 
+
 seata:
   enabled: true
   enable-auto-data-source-proxy: false
@@ -40,3 +41,8 @@ seata:
       application: seata-server
       group: SEATA_GROUP
     type: nacos
+
+
+feign:
+  okhttp:
+    enabled: true

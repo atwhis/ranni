@@ -28,6 +28,7 @@
         <dynamic-datasource.version>3.4.0</dynamic-datasource.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <spring-boot-admin.version>2.2.0</spring-boot-admin.version>
+        <feign-okhttp.version>11.8</feign-okhttp.version>
     </properties>
 
     <dependencyManagement>
