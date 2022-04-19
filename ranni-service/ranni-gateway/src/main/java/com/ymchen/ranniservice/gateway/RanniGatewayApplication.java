@@ -1,4 +1,4 @@
-package com.ymchen.rannigateway;
+package com.ymchen.ranniservice.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

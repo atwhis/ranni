@@ -1,4 +1,4 @@
-package com.ymchen.rannigateway.filter;
+package com.ymchen.ranniservice.gateway.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -16,9 +16,7 @@ public class ParticularFilter extends AbstractGatewayFilterFactory<Object> {
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
             log.info("gateway particular filter ,before filter ....... ");
-            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-                log.info("gateway particular filter ,after filter....... ");
-            }));
+            return chain.filter(exchange).then(Mono.fromRunnable(() -> log.info("gateway particular filter ,after filter....... ")));
         };
     }
 }

@@ -4,6 +4,7 @@ package com.ymchen.ranniservice.order.controller;
 import com.ymchen.rannibase.dto.order.OrderDTO;
 import com.ymchen.rannibase.entity.order.Order;
 import com.ymchen.ranniservice.order.service.OrderService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("order")
 @RequiredArgsConstructor
-@ApiOperation("订单controller")
+@Api("订单controller")
 public class OrderController {
 
     private final OrderService orderService;
-
-    @GetMapping("test")
-    @ApiOperation("测试异常")
-    public Object test() {
-        System.out.printf("abc"+100/0);
-        return "hello";
-    }
 
     @ApiOperation("查询订单信息")
     @ApiImplicitParam(name="orderId",value = "订单Id")

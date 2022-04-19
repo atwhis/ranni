@@ -1,9 +1,9 @@
-package com.ymchen.ranniapi.service.impl;
+package com.ymchen.ranniservice.api.service.impl;
 
-import com.ymchen.ranniapi.remote.OrderRemoteService;
-import com.ymchen.ranniapi.remote.StockRemoteService;
-import com.ymchen.ranniapi.remote.UserRemoteService;
-import com.ymchen.ranniapi.service.ApiService;
+import com.ymchen.ranniservice.api.remote.OrderRemoteService;
+import com.ymchen.ranniservice.api.remote.StockRemoteService;
+import com.ymchen.ranniservice.api.remote.UserRemoteService;
+import com.ymchen.ranniservice.api.service.ApiService;
 import com.ymchen.rannibase.dto.api.UserOrderDTO;
 import com.ymchen.rannibase.dto.order.OrderDTO;
 import com.ymchen.rannibase.entity.crm.User;
@@ -43,7 +43,7 @@ public class ApiServiceImpl implements ApiService {
         userOrderDTO.setUserName(user.getUserName());
 
 
-        List<OrderDTO> orderDTOs = new ArrayList<>();
+        List<OrderDTO> orderDTOs;
 
         List<Order> orders = orderRemoteService.getOrdersByUser(userId);
         /*orders.forEach((order -> {

@@ -1,4 +1,4 @@
-package com.ymchen.ranniapi.service;
+package com.ymchen.ranniservice.api.service;
 
 import com.ymchen.rannibase.dto.api.UserOrderDTO;
 

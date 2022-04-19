@@ -1,4 +1,4 @@
-package com.ymchen.rannigateway.error;
+package com.ymchen.ranniservice.gateway.error;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;

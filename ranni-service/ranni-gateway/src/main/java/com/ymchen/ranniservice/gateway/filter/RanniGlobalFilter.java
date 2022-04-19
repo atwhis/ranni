@@ -1,4 +1,4 @@
-package com.ymchen.rannigateway.filter;
+package com.ymchen.ranniservice.gateway.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -17,8 +17,6 @@ public class RanniGlobalFilter implements GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         log.info("gateway global filter ,before filter....... ");
-        return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-            log.info("gateway global filter ,after filter....... ");
-        }));
+        return chain.filter(exchange).then(Mono.fromRunnable(() -> log.info("gateway global filter ,after filter....... ")));
     }
 }

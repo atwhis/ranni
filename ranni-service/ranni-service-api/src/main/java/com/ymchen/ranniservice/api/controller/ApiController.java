@@ -1,6 +1,6 @@
-package com.ymchen.ranniapi.controller;
+package com.ymchen.ranniservice.api.controller;
 
-import com.ymchen.ranniapi.service.ApiService;
+import com.ymchen.ranniservice.api.service.ApiService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.ymchen.rannigateway.controller;
+package com.ymchen.ranniservice.gateway.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

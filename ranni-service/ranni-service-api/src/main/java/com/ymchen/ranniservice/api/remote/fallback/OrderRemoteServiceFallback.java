@@ -1,11 +1,9 @@
-package com.ymchen.ranniapi.remote.fallback;
+package com.ymchen.ranniservice.api.remote.fallback;
 
-import com.ymchen.ranniapi.remote.OrderRemoteService;
-import com.ymchen.rannibase.constant.RanniApplicationConstant;
+import com.ymchen.ranniservice.api.remote.OrderRemoteService;
 import com.ymchen.rannibase.entity.order.Order;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
