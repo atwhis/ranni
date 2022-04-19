@@ -28,6 +28,9 @@
         <dynamic-datasource.version>3.4.0</dynamic-datasource.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <spring-boot-admin.version>2.2.0</spring-boot-admin.version>
+        <knife4j.version>3.0.3</knife4j.version>
+        <springfox.version>3.0.0</springfox.version>
+        <swagger.version>1.6.0</swagger.version>
     </properties>
 
     <dependencyManagement>

@@ -55,6 +55,11 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>${spring-boot-admin.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.ymchen</groupId>
+            <artifactId>ranni-component-doc-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

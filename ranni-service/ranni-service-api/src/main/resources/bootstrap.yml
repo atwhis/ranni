@@ -18,6 +18,16 @@ logging:
   level:
     root: info
 
+ranni:
+  doc:
+    enable: true
+    title: ${spring.application.name}文档
+    base-package: com.ymchen.ranniapi.controller
+    description: ${ranni.doc.title}
+    name: ranni
+    email: test@qq.com
+    url: http://${nacos.url}:8848
+    version: 0.0.1-SNAPSHOT
 
 seata:
   enabled: true
