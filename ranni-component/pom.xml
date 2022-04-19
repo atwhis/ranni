@@ -18,6 +18,7 @@
         <module>ranni-base</module>
         <module>ranni-component-redis-starter</module>
         <module>ranni-component-log-starter</module>
+        <module>ranni-component-doc-starter</module>
     </modules>
 
 </project>
