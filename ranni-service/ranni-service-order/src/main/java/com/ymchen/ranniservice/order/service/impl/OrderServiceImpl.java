@@ -2,20 +2,19 @@ package com.ymchen.ranniservice.order.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ymchen.rannibase.remote.UserRemoteService;
+import com.ymchen.rannibase.util.SnowFlake;
 import com.ymchen.rannibase.dto.order.OrderDTO;
 import com.ymchen.rannibase.entity.crm.User;
 import com.ymchen.rannibase.entity.order.Order;
 import com.ymchen.ranniservice.order.mapper.OrderMapper;
-import com.ymchen.ranniservice.order.remote.UserRemoteService;
 import com.ymchen.ranniservice.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -35,12 +34,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return baseMapper.selectList(query);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
-    public void createOrder(Long userId) {
+    public String createOrder(Long userId, String goodsNo) {
+        SnowFlake snowFlake = new SnowFlake(2, 3);
+        String orderNo = "NO" + snowFlake.nextId();
         Order order = new Order();
-        order.setOrderState(1).setOrderUser(userId).setRemark("remark for test").setOrderNo(UUID.randomUUID().toString().substring(0, 5));
+        order.setOrderUser(userId).setOrderGoods(goodsNo).setOrderNo(orderNo);
         int insert = baseMapper.insert(order);
+        return orderNo;
     }
 
     @Override

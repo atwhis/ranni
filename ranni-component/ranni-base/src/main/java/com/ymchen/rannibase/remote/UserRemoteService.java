@@ -1,8 +1,8 @@
-package com.ymchen.ranniservice.api.remote;
+package com.ymchen.rannibase.remote;
 
-import com.ymchen.ranniservice.api.remote.fallback.UserRemoteServiceFallback;
 import com.ymchen.rannibase.constant.RanniApplicationConstant;
 import com.ymchen.rannibase.entity.crm.User;
+import com.ymchen.rannibase.remote.fallback.UserRemoteServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

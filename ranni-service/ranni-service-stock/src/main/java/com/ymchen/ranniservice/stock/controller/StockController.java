@@ -16,6 +16,11 @@ public class StockController {
 
     private final StockService stockService;
 
+    @GetMapping("getByGoodsNo")
+    public Stock getByGoodsNo(@RequestParam("goodsNo") String goodsNo) {
+        return stockService.getByGoodsNo(goodsNo);
+    }
+
     @GetMapping("getById")
     public Stock getById(@RequestParam("stockId") Long stockId) {
         return stockService.getById(stockId);

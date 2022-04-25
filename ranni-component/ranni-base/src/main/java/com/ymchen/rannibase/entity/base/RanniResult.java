@@ -26,10 +26,6 @@ public class RanniResult implements Serializable {
         return new RanniResult(HttpStatus.OK.value(), null, object);
     }
 
-    public static RanniResult SUCCESS(String message) {
-        return new RanniResult(HttpStatus.OK.value(), message, null);
-    }
-
     public static RanniResult SUCCESS(String message, Object object) {
         return new RanniResult(HttpStatus.OK.value(), message, object);
     }

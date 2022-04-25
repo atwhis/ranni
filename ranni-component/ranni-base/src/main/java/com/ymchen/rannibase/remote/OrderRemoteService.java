@@ -1,8 +1,8 @@
-package com.ymchen.ranniservice.api.remote;
+package com.ymchen.rannibase.remote;
 
-import com.ymchen.ranniservice.api.remote.fallback.OrderRemoteServiceFallback;
 import com.ymchen.rannibase.constant.RanniApplicationConstant;
 import com.ymchen.rannibase.entity.order.Order;
+import com.ymchen.rannibase.remote.fallback.OrderRemoteServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,5 +16,5 @@ public interface OrderRemoteService {
     List<Order> getOrdersByUser(@RequestParam("userId") Long userId);
 
     @GetMapping("/order/createOrder")
-    void createOrder(@RequestParam("userId") Long userId);
+    String createOrder(@RequestParam("userId") Long userId);
 }

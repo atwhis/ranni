@@ -1,7 +1,7 @@
-package com.ymchen.ranniservice.api.remote.fallback;
+package com.ymchen.rannibase.remote.fallback;
 
-import com.ymchen.ranniservice.api.remote.UserRemoteService;
 import com.ymchen.rannibase.entity.crm.User;
+import com.ymchen.rannibase.remote.UserRemoteService;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

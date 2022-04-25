@@ -1,7 +1,7 @@
-package com.ymchen.ranniservice.api.remote.fallback;
+package com.ymchen.rannibase.remote.fallback;
 
-import com.ymchen.ranniservice.api.remote.OrderRemoteService;
 import com.ymchen.rannibase.entity.order.Order;
+import com.ymchen.rannibase.remote.OrderRemoteService;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,8 +21,9 @@ public class OrderRemoteServiceFallback implements FallbackFactory<OrderRemoteSe
             }
 
             @Override
-            public void createOrder(Long userId) {
+            public String createOrder(Long userId) {
                 log.error("创建订单失败",throwable);
+                return null;
             }
         };
     }

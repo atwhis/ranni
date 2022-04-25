@@ -1,0 +1,66 @@
+version: "3"
+services:
+  redis:
+    image: redis:4.0
+    container_name: redis4.0
+    ports:
+      - 6379:6379
+    restart: always
+  mysql:
+    image: mysql:5.7
+    container_name: mysql5.7
+    volumes:
+      - ~/docker/data/mysql2:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    restart: always
+  nacos:
+    image: nacos/nacos-server:2.0.2
+    container_name: nacos
+    hostname: nacos
+    restart: always
+    depends_on:
+      - mysql
+    links:
+      - mysql:mysql
+    environment:
+      PREFER_HOST_MODE: mysql
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MODE: standalone
+      MYSQL_SERVICE_HOST: mysql
+      MYSQL_SERVICE_DB_NAME: nacos
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      NACOS_APPLICATION_PORT: 8848
+      JVM_XMS: 512m
+      JVM_XMX: 512m
+    volumes:
+      - ~/docker/logs/nacos/:/home/nacos/logs
+    ports:
+      - "8848:8848"
+  seata:
+    image: seataio/seata-server:1.3.0
+    hostname: seata
+    container_name: seata
+    depends_on:
+      - nacos
+      - mysql
+    links:
+      - nacos:nacos
+      - mysql:mysql
+    ports:
+      - "8091:8091"
+    environment:
+      - SEATA_PORT=8091
+      # 注册到nacos上的ip。客户端将通过该ip访问seata服务。
+      # 注意公网ip和内网ip的差异。
+      - SEATA_IP=127.0.0.1
+      - SEATA_CONFIG_NAME=file:/root/seata-config/registry
+      #- SEATA_CONFIG_NAME=file:/root/seata-config/file.conf
+    volumes:
+      # 因为registry.conf中是nacos配置中心，只需要把registry.conf放到./seata-server/config文件夹中
+      - "../../doc/seata/conf:/root/seata-config"
+      - "~/docker/logs/seata/:/root/logs/seata"

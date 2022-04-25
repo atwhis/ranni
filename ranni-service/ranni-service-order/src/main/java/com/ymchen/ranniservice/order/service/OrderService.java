@@ -12,7 +12,7 @@ public interface OrderService extends IService<Order> {
 
     public List<Order> getOrdersByUser(Long userId);
 
-    public void createOrder(Long userId);
+    public String createOrder(Long userId,String goodsNo);
 
     public OrderDTO getOrderDetail(Long orderId);
 }

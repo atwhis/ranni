@@ -37,7 +37,7 @@ seata:
   tx-service-group: test-tx-group
   config:
     nacos:
-      namespace: 856c4aec-a0e7-48cf-8eff-11a67863972f
+      namespace: d379e873-0473-411b-aab9-4ff7e0b4ef80
       server-addr: ${nacos.url}:8848
       username: nacos
       password: nacos

@@ -11,4 +11,6 @@ public class OrderDTO extends Order implements Serializable {
 
     public String userName;
 
+    public String goodsName;
+
 }
