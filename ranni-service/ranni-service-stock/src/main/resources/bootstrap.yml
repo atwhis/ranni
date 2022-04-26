@@ -28,26 +28,3 @@ logging:
           nacos:
             client:
               NacosPropertySourceBuilder: error
-
-
-seata:
-  enabled: true
-  enable-auto-data-source-proxy: false
-  application-id: ${spring.application.name}
-  tx-service-group: test-tx-group
-  config:
-    nacos:
-      namespace: d379e873-0473-411b-aab9-4ff7e0b4ef80
-      server-addr: ${nacos.url}:8848
-      username: nacos
-      password: nacos
-    type: nacos
-  registry:
-    nacos:
-      namespace:
-      server-addr: ${nacos.url}:8848
-      username: nacos
-      password: nacos
-      application: seata-server
-      group: SEATA_GROUP
-    type: nacos

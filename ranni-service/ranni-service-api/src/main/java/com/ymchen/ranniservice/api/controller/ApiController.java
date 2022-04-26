@@ -33,12 +33,15 @@ public class ApiController {
     @Value("${member.addr.city}")
     private String memberCity;
 
+    @ApiOperation("测试从nacos获取配置")
     @GetMapping("getInfo")
-    public void getInfo() {
+    public Object getInfo() {
         log.error("memberName:{} , memberCity:{}", memberName, memberCity);
+        return RanniResult.SUCCESS("memberName: " + memberName + " memberCity: " + memberCity);
     }
 
     @GetMapping("log")
+    @ApiOperation("测试日志级别")
     public Object testLog() {
         log.error("test log......error");
         log.info("test log......info");
