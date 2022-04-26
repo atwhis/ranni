@@ -56,7 +56,7 @@ public class ApiController {
 
     @GlobalTransactional
     @GetMapping("createOrder")
-    @ApiOperation("创建订单--正常事务")
+    @ApiOperation("创建订单-正常事务")
     @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "goodsNo", value = "商品编号", required = true, dataType = "String")})
     public Object createOrderAndDeduct(@RequestParam("userId") Long userId, @RequestParam("goodsNo") String goodsNo) {
@@ -66,9 +66,9 @@ public class ApiController {
 
     @GlobalTransactional
     @GetMapping("createOrderRollback")
-    @ApiOperation("创建订单--事务回滚(商品编号-N789)")
+    @ApiOperation("创建订单-事务回滚(商品编号-N789)")
     @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "goodsNo", value = "商品编号", required = true, dataType = "String", defaultValue = "N789")})
+            @ApiImplicitParam(name = "goodsNo", value = "商品编号", required = false, dataType = "String", defaultValue = "N789")})
     public Object createOrderAndDeductRollback(@RequestParam("userId") Long userId, @RequestParam("goodsNo") String goodsNo) {
         final String orderNo = apiService.createOrderAndDeduct(userId, goodsNo);
         return RanniResult.SUCCESS(orderNo);

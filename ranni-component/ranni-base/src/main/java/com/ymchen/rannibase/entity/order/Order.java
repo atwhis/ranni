@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 @Data
 @Accessors(chain = true)
@@ -29,8 +29,8 @@ public class Order implements Serializable {
     private String orderGoods;
 
     @TableField("create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @TableField("modify_time")
-    private LocalDateTime modifyTime;
+    private Date modifyTime;
 }

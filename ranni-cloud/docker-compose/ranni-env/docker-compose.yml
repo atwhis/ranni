@@ -41,6 +41,8 @@ services:
       - ~/docker/logs/nacos/:/home/nacos/logs
     ports:
       - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
   seata:
     image: seataio/seata-server:1.3.0
     hostname: seata
@@ -54,13 +56,9 @@ services:
     ports:
       - "8091:8091"
     environment:
-      - SEATA_PORT=8091
-      # 注册到nacos上的ip。客户端将通过该ip访问seata服务。
-      # 注意公网ip和内网ip的差异。
-      - SEATA_IP=127.0.0.1
-      - SEATA_CONFIG_NAME=file:/root/seata-config/registry
-      #- SEATA_CONFIG_NAME=file:/root/seata-config/file.conf
+      SEATA_PORT: 8091
+      SEATA_IP: 10.44.1.133
     volumes:
-      # 因为registry.conf中是nacos配置中心，只需要把registry.conf放到./seata-server/config文件夹中
-      - "../../doc/seata/conf:/root/seata-config"
-      - "~/docker/logs/seata/:/root/logs/seata"
+      - ../../doc/seata/conf/registry.conf:/seata-server/resources/registry.conf
+      - ../../doc/seata/conf/file.conf:/seata-server/resources/file.conf
+      - ~/docker/logs/seata/:/root/logs/seata

@@ -32,7 +32,7 @@ public class ApiServiceImpl implements ApiService {
     @Transactional
     @Override
     public String createOrderAndDeduct(Long userId, String goodsNo) {
-        final String orderNo = orderRemoteService.createOrder(userId);
+        final String orderNo = orderRemoteService.createOrder(userId,goodsNo);
         stockRemoteService.deduct(goodsNo);
         return orderNo;
     }
@@ -59,6 +59,7 @@ public class ApiServiceImpl implements ApiService {
             BeanUtils.copyProperties(order, orderDTO);
 
             final Stock stock = stockRemoteService.getByGoodsNo(order.getOrderGoods());
+            orderDTO.setUserName(user.getUserName());
             orderDTO.setGoodsName(stock.getGoodsName());
 
             return orderDTO;

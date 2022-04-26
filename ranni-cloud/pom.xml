@@ -32,6 +32,7 @@
         <springfox.version>3.0.0</springfox.version>
         <swagger.version>1.6.0</swagger.version>
         <feign-okhttp.version>11.8</feign-okhttp.version>
+        <kryo.version>4.0.0</kryo.version>
     </properties>
 
     <dependencyManagement>

@@ -16,13 +16,13 @@ public class OrderRemoteServiceFallback implements FallbackFactory<OrderRemoteSe
         return new OrderRemoteService() {
             @Override
             public List<Order> getOrdersByUser(Long userId) {
-                log.error("查询订单失败",throwable);
+                log.error("查询订单失败", throwable);
                 return null;
             }
 
             @Override
-            public String createOrder(Long userId) {
-                log.error("创建订单失败",throwable);
+            public String createOrder(Long userId, String goodsNo) {
+                log.error("创建订单失败", throwable);
                 return null;
             }
         };

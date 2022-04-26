@@ -33,7 +33,7 @@ ranni:
   doc:
     enable: true
     title: ${spring.application.name}文档
-    base-package: com.ymchen.ranniapi.controller
+    base-package: com.ymchen.ranniservice.api.controller
     description: ${ranni.doc.title}
     name: ranni
     email: test@qq.com
@@ -64,7 +64,6 @@ seata:
       application: seata-server
       group: SEATA_GROUP
     type: nacos
-
 
 feign:
   okhttp:

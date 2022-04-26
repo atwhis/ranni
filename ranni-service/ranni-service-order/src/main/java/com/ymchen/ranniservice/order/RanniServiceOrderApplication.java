@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(scanBasePackages = "com.ymchen")
 @EnableTransactionManagement
 @MapperScan("com.ymchen.ranniservice.order.mapper")
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.ymchen")
 @EnableDiscoveryClient
 public class RanniServiceOrderApplication {
 

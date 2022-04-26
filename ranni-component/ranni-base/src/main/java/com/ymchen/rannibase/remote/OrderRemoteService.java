@@ -15,6 +15,7 @@ public interface OrderRemoteService {
     @GetMapping("/order/getOrdersByUser")
     List<Order> getOrdersByUser(@RequestParam("userId") Long userId);
 
+
     @GetMapping("/order/createOrder")
-    String createOrder(@RequestParam("userId") Long userId);
+    String createOrder(@RequestParam("userId") Long userId, @RequestParam("goodsNo") String goodsNo);
 }

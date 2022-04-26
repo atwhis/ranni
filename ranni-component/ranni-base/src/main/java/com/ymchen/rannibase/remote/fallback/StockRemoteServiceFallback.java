@@ -15,6 +15,7 @@ public class StockRemoteServiceFallback implements FallbackFactory<StockRemoteSe
             @Override
             public void deduct(String goodsNo) {
                 log.error("扣减库存失败。。。。goodsNo:{}",goodsNo);
+                throw new RuntimeException(throwable);
             }
 
             @Override
