@@ -2,12 +2,12 @@ version: '3'
 
 services:
   sentinel-dashboard:
-    image: sentinel-dashboard:latest
+    image: sentinel:latest
     container_name: sentinel-dashboard
     environment:
       PASSWORD: 123456
     volumes:
       - ~/docker/logs/sentinel:/opt/logs
     ports:
-      - 8080:8080
+      - 7070:8080
     restart: on-failure

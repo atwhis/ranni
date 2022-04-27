@@ -16,8 +16,5 @@ RUN chmod +x /opt/sentinel-entrypoint.sh \
 
 VOLUME /opt/logs
 
-#CMD java ${JAVA_OPT} -jar /opt/sentinel-dashboard-1.8.1.jar
-
-CMD echo 'abcdef'
 
 ENTRYPOINT ["sentinel-entrypoint.sh"]
