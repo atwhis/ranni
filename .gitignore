@@ -18,6 +18,8 @@ target/
 *.iml
 *.ipr
 
+**/generator_temp/
+
 **/.mvn/
 **/target/
 **/**/target/
