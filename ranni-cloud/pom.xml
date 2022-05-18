@@ -36,6 +36,7 @@
         <kryo-serializers.version>0.45</kryo-serializers.version>
         <p6spy.version>3.8.7</p6spy.version>
         <gson.version>2.9.0</gson.version>
+        <redisson.version>3.16.8</redisson.version>
     </properties>
 
     <dependencyManagement>

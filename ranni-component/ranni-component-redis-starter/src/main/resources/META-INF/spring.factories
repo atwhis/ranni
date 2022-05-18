@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.ymchen.ranni.component.redis.config.RanniLettuceRedisAutoConfigure
+com.ymchen.ranni.component.redis.config.RanniLettuceRedisAutoConfigure,\
+com.ymchen.ranni.component.redis.config.RedissonAutoConfiguration
