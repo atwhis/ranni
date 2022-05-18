@@ -37,6 +37,7 @@
         <p6spy.version>3.8.7</p6spy.version>
         <gson.version>2.9.0</gson.version>
         <redisson.version>3.16.8</redisson.version>
+        <findbugs.version>3.0.5</findbugs.version>
     </properties>
 
     <dependencyManagement>
@@ -57,5 +58,27 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+           <!-- <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <threshold>High</threshold>
+                    <effort>Default</effort>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+        </plugins>
+    </build>
 
 </project>
