@@ -20,6 +20,7 @@
         <module>ranni-component-log-starter</module>
         <module>ranni-component-doc-starter</module>
         <module>ranni-component-datasource-starter</module>
+        <module>ranni-component-security-starter</module>
     </modules>
 
 </project>
