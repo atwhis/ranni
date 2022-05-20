@@ -77,4 +77,16 @@ public class ApiController {
         return RanniResult.SUCCESS(orderNo);
     }
 
+    @GetMapping("flow")
+    @ApiOperation("测试流控")
+    public Object testFlowControl() {
+        return "flow control";
+    }
+
+    @GetMapping("degrade")
+    @ApiOperation("测试降级")
+    public Object testDegrade() {
+        return "degrade";
+    }
+
 }

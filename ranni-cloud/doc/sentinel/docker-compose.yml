@@ -9,5 +9,5 @@ services:
     volumes:
       - ~/docker/logs/sentinel:/opt/logs
     ports:
-      - 7070:8080
+      - 8801:8080
     restart: on-failure

@@ -15,6 +15,9 @@ public class ParticularFilter extends AbstractGatewayFilterFactory<Object> {
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
+            if (exchange.getRequest().getPath().value().contains("degrade")) {
+                throw new RuntimeException("degrade test for sentinel");
+            }
             log.info("gateway particular filter ,before filter ....... ");
             return chain.filter(exchange).then(Mono.fromRunnable(() -> log.info("gateway particular filter ,after filter....... ")));
         };
