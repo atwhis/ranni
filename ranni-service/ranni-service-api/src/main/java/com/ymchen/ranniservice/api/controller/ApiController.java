@@ -1,5 +1,7 @@
 package com.ymchen.ranniservice.api.controller;
 
+import com.ymchen.ranni.component.redis.util.RedisUtil;
+import com.ymchen.rannibase.dto.api.UserOrderDTO;
 import com.ymchen.rannibase.entity.base.RanniResult;
 import com.ymchen.ranniservice.api.service.ApiService;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
 
     private final ApiService apiService;
+
+    private final RedisUtil redisUtil;
 
     @Value("${member.base.name}")
     private String memberName;
@@ -87,6 +91,16 @@ public class ApiController {
     @ApiOperation("测试降级")
     public Object testDegrade() {
         return "degrade";
+    }
+
+    @ApiOperation("skywalking链路测试")
+    @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "Long")
+    @GetMapping("skywalkingTest")
+    public Object skywalkingTest(@RequestParam("userId") Long userId) {
+        redisUtil.set("hello", "world", 60L);
+        final UserOrderDTO userOrders = apiService.getUserOrders(userId);
+        redisUtil.get("hello");
+        return userOrders;
     }
 
 }

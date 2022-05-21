@@ -23,7 +23,7 @@ public class RedisController {
     private final RedisLockUtil redisLockUtil;
 
     @ApiOperation("测试自动过期锁")
-    @PostMapping("testLeaseLock")
+    @GetMapping("testLeaseLock")
     public Object testLeaseLock(@RequestParam("lockName") String lockName) {
         try {
             redisLockUtil.lockWithLeaseTime(lockName, 3, TimeUnit.SECONDS);
@@ -38,7 +38,7 @@ public class RedisController {
     }
 
     @ApiOperation("测试自动续期锁-业务耗时35s")
-    @PostMapping("testWatchDogLock")
+    @GetMapping("testWatchDogLock")
     public Object testWatchDogLock(@RequestParam("lockName") String lockName) {
         try {
             redisLockUtil.lockWithWatchdog(lockName);
