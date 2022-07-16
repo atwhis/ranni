@@ -38,6 +38,7 @@
         <gson.version>2.9.0</gson.version>
         <redisson.version>3.16.8</redisson.version>
         <findbugs.version>3.0.5</findbugs.version>
+        <logstash-logback-encoder.version>7.1</logstash-logback-encoder.version>
     </properties>
 
     <dependencyManagement>
