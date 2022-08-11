@@ -1,6 +1,7 @@
 package com.ymchen.ranniservice.api.service.impl;
 
 
+import com.ymchen.ranni.component.log.annotation.LogRecord;
 import com.ymchen.rannibase.dto.api.UserOrderDTO;
 import com.ymchen.rannibase.dto.order.OrderDTO;
 import com.ymchen.rannibase.entity.crm.User;
@@ -11,6 +12,7 @@ import com.ymchen.rannibase.remote.StockRemoteService;
 import com.ymchen.rannibase.remote.UserRemoteService;
 import com.ymchen.ranniservice.api.service.ApiService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ApiServiceImpl implements ApiService {
@@ -68,5 +70,11 @@ public class ApiServiceImpl implements ApiService {
 
         userOrderDTO.setOrders(orderDTOs);
         return userOrderDTO;
+    }
+
+    @Override
+    @LogRecord(content = "日志和链路测试Service,用户id：{#userOrderDTO.userId},用户名：{#userOrderDTO.userName}")
+    public void logTest(UserOrderDTO userOrderDTO) {
+        log.info("logTest service invoke");
     }
 }

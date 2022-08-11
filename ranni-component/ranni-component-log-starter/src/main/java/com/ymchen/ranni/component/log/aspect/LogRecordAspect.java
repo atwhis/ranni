@@ -3,8 +3,9 @@ package com.ymchen.ranni.component.log.aspect;
 
 import com.ymchen.ranni.component.log.annotation.LogRecord;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.expression.EvaluationContext;
@@ -23,8 +24,14 @@ public class LogRecordAspect {
     public static final TemplateParserContext TEMPLATE_PARSER_CONTEXT = new TemplateParserContext("{", "}");
     public static final ExpressionParser EXPRESSION_PARSER = new SpelExpressionParser();
 
+
     @Pointcut("@annotation(com.ymchen.ranni.component.log.annotation.LogRecord)")
-    public Object recordLog(ProceedingJoinPoint joinPoint) throws Throwable {
+    public void logRecord() {
+    }
+
+
+    @Before(value = "logRecord()")
+    public void recordLog(JoinPoint joinPoint){
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Object[] args = joinPoint.getArgs();
         String[] parameterNames = signature.getParameterNames();
@@ -41,14 +48,6 @@ public class LogRecordAspect {
             log.info("logRecord:{}", logContent);
         } catch (Exception ex) {
             log.error("logRecord error:{}", ex.getMessage());
-        }
-
-        try {
-            result = joinPoint.proceed();
-            return result;
-        } catch (Exception ex) {
-            log.error("business execute error:{}", ex.getMessage());
-            throw ex;
         }
     }
 }

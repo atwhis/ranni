@@ -1,5 +1,6 @@
 package com.ymchen.ranniservice.api.controller;
 
+import com.ymchen.ranni.component.log.annotation.LogRecord;
 import com.ymchen.ranni.component.redis.util.RedisUtil;
 import com.ymchen.rannibase.dto.api.UserOrderDTO;
 import com.ymchen.rannibase.entity.base.RanniResult;
@@ -13,10 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
@@ -61,7 +59,7 @@ public class ApiController {
         return apiService.getUserOrders(userId);
     }
 
-    @GlobalTransactional
+    //@GlobalTransactional
     @GetMapping("createOrder")
     @ApiOperation("创建订单-正常事务")
     @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "Long"),
@@ -101,6 +99,14 @@ public class ApiController {
         final UserOrderDTO userOrders = apiService.getUserOrders(userId);
         redisUtil.get("hello");
         return userOrders;
+    }
+
+    @PostMapping("logTest")
+    @ApiOperation("测试日志记录")
+    @LogRecord(content = "日志和链路测试controller,用户id：{#userOrderDTO.userId},用户名：{#userOrderDTO.userName}")
+    public Object testLogRecord(UserOrderDTO userOrderDTO) {
+        apiService.logTest(userOrderDTO);
+        return userOrderDTO;
     }
 
 }
