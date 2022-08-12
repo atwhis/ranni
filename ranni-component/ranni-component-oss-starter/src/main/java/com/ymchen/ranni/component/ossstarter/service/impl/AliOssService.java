@@ -7,19 +7,19 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public class MinioOssService implements OssService {
+public class AliOssService implements OssService {
 
     private RanniOssProperties ranniOssProperties;
 
 
     @Override
     public String upload() {
-        log.info("minio file upload:{}",ranniOssProperties);
+        log.info("ali file upload:{}",ranniOssProperties);
         return null;
     }
 
     @Override
     public void download() {
-        log.info("minio file download");
+        log.info("ali file download");
     }
 }
