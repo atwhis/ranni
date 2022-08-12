@@ -37,7 +37,6 @@ public class LogRecordAspect {
         String[] parameterNames = signature.getParameterNames();
         Method method = signature.getMethod();
         LogRecord logRecordAnnotation = method.getAnnotation(LogRecord.class);
-        Object result = null;
         try {
             EvaluationContext evaluationContext = new StandardEvaluationContext();
             for (int i = 0; i < args.length; i++) {
