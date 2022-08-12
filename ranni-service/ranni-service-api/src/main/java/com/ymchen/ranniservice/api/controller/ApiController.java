@@ -1,6 +1,7 @@
 package com.ymchen.ranniservice.api.controller;
 
 import com.ymchen.ranni.component.log.annotation.LogRecord;
+import com.ymchen.ranni.component.ossstarter.service.OssService;
 import com.ymchen.ranni.component.redis.util.RedisUtil;
 import com.ymchen.rannibase.dto.api.UserOrderDTO;
 import com.ymchen.rannibase.entity.base.RanniResult;
@@ -28,6 +29,8 @@ public class ApiController {
     private final ApiService apiService;
 
     private final RedisUtil redisUtil;
+
+    private final OssService ossService;
 
     @Value("${member.base.name}")
     private String memberName;
@@ -107,6 +110,13 @@ public class ApiController {
     public Object testLogRecord(UserOrderDTO userOrderDTO) {
         apiService.logTest(userOrderDTO);
         return userOrderDTO;
+    }
+
+    @GetMapping("upload")
+    @ApiOperation("测试文件上传")
+    public Object testUpload() {
+        ossService.upload();
+        return "success";
     }
 
 }

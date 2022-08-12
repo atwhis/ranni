@@ -2,13 +2,13 @@ package com.ymchen.ranni.component.ossstarter.service.impl;
 
 import com.ymchen.ranni.component.ossstarter.properties.RanniOssProperties;
 import com.ymchen.ranni.component.ossstarter.service.OssService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-@RequiredArgsConstructor
 public class MinioOssService implements OssService {
 
+    @Autowired
     private RanniOssProperties ranniOssProperties;
 
 
