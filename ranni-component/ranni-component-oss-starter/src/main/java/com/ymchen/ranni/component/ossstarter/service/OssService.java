@@ -1,9 +1,11 @@
 package com.ymchen.ranni.component.ossstarter.service;
 
+import java.io.InputStream;
+
 public interface OssService {
 
 
-    public String upload();
+     String upload(InputStream inputStream,String filename);
 
-    public void download();
+     InputStream download(String filename);
 }

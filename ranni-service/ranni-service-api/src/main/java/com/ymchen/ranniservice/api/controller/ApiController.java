@@ -112,11 +112,4 @@ public class ApiController {
         return userOrderDTO;
     }
 
-    @GetMapping("upload")
-    @ApiOperation("测试文件上传")
-    public Object testUpload() {
-        ossService.upload();
-        return "success";
-    }
-
 }

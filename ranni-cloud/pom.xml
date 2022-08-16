@@ -31,7 +31,8 @@
         <knife4j.version>3.0.3</knife4j.version>
         <springfox.version>3.0.0</springfox.version>
         <swagger.version>1.6.0</swagger.version>
-        <feign-okhttp.version>11.8</feign-okhttp.version>
+        <feign-okhttp.version>11.9</feign-okhttp.version>
+        <okhttp3.version>4.10.0</okhttp3.version>
         <kryo.version>4.0.0</kryo.version>
         <kryo-serializers.version>0.45</kryo-serializers.version>
         <p6spy.version>3.8.7</p6spy.version>
@@ -39,6 +40,7 @@
         <redisson.version>3.16.8</redisson.version>
         <findbugs.version>3.0.5</findbugs.version>
         <logstash-logback-encoder.version>7.1</logstash-logback-encoder.version>
+        <minio.version>8.4.3</minio.version>
     </properties>
 
     <dependencyManagement>
