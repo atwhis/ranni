@@ -15,14 +15,8 @@ public class MinioOssService implements OssService {
 
     @Autowired
     private RanniOssProperties ranniOssProperties;
-
-    private MinioClient getClient() {
-
-        return MinioClient.builder()
-                .endpoint(ranniOssProperties.getUrl())
-                .credentials(ranniOssProperties.getAccessKey(), ranniOssProperties.getSecretKey())
-                .build();
-    }
+    @Autowired
+    private MinioClient minioClient;
 
     private void createBucketIfNoExist(MinioClient minioClient) {
         try {
@@ -40,24 +34,21 @@ public class MinioOssService implements OssService {
     @Override
     public String upload(InputStream inputStream, String filename) {
         try {
-            MinioClient client = getClient();
-            createBucketIfNoExist(client);
+            createBucketIfNoExist(minioClient);
             String newFilename = OssFileUtil.generateNewFilename(filename);
-            client.putObject(PutObjectArgs.builder().bucket(ranniOssProperties.getBucketName())
+            minioClient.putObject(PutObjectArgs.builder().bucket(ranniOssProperties.getBucketName())
                     .object(newFilename).stream(inputStream, inputStream.available(), -1).build());
             return ranniOssProperties.getUrl() + "/" + ranniOssProperties.getBucketName() + "/" + newFilename;
         } catch (Exception ex) {
             log.error("file upload error:{}", ex.getMessage());
         }
-
         return null;
     }
 
     @Override
     public InputStream download(String filename) {
-        MinioClient client = getClient();
         try {
-            return client.getObject(
+            return minioClient.getObject(
                     GetObjectArgs.builder().bucket(ranniOssProperties.getBucketName()).object(filename).build());
         } catch (Exception exception) {
             log.error("download file error:{}", exception.getMessage());
