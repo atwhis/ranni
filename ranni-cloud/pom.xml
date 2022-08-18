@@ -39,6 +39,8 @@
         <redisson.version>3.16.8</redisson.version>
         <findbugs.version>3.0.5</findbugs.version>
         <logstash-logback-encoder.version>7.1</logstash-logback-encoder.version>
+        <mybatis-generator-maven-plugin.version>1.4.0</mybatis-generator-maven-plugin.version>
+        <mysql-connector-java.version>8.0.25</mysql-connector-java.version>
     </properties>
 
     <dependencyManagement>
