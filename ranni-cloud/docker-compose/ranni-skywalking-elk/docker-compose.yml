@@ -117,5 +117,5 @@ services:
     networks:
       - elastic
 networks:
-  elastic:
-    driver: bridge
+  mynet:
+    external: true
