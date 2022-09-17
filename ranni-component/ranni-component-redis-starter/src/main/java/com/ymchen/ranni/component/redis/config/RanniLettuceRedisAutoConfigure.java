@@ -3,6 +3,7 @@ package com.ymchen.ranni.component.redis.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ymchen.ranni.component.redis.aspect.RanniCacheAspect;
 import com.ymchen.ranni.component.redis.properties.RanniLettuceRedisProperties;
 import com.ymchen.ranni.component.redis.util.RedisUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -47,5 +48,11 @@ public class RanniLettuceRedisAutoConfigure {
     @ConditionalOnBean(name = "redisTemplate")
     public RedisUtil redisUtil() {
         return new RedisUtil();
+    }
+
+    @Bean
+    @ConditionalOnBean(name = "redisTemplate")
+    public RanniCacheAspect ranniCacheAspect() {
+        return new RanniCacheAspect();
     }
 }

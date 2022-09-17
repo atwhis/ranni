@@ -13,7 +13,7 @@ public @interface RanniCache {
      *
      * @return
      */
-    int namespace();
+//    int namespace() default 11111;
 
     /**
      * key的前缀
@@ -27,12 +27,12 @@ public @interface RanniCache {
      *
      * @return
      */
-    String keySuffix();
+    String keySuffix() default "";
 
     /**
-     * 过期时间(s)
+     * 过期时间(s),默认10s
      *
      * @return
      */
-    long seconds = 10L;
+    long seconds() default 10L;
 }

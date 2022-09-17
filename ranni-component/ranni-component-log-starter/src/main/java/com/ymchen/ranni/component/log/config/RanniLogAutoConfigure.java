@@ -41,7 +41,6 @@ public class RanniLogAutoConfigure {
     @Bean
     @ConditionalOnProperty(name = "ranni.log.enableLogRecord", havingValue = "true", matchIfMissing = false)
     public LogRecordAspect logRecordAspect() {
-        System.out.println("hello");
         return new LogRecordAspect();
     }
 

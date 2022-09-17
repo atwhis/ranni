@@ -2,8 +2,10 @@ package com.ymchen.ranniservice.api.controller;
 
 import com.ymchen.ranni.component.log.annotation.LogRecord;
 import com.ymchen.ranni.component.ossstarter.service.OssService;
+import com.ymchen.ranni.component.redis.annotation.RanniCache;
 import com.ymchen.ranni.component.redis.util.RedisUtil;
 import com.ymchen.rannibase.dto.api.UserOrderDTO;
+import com.ymchen.rannibase.dto.crm.UserDTO;
 import com.ymchen.rannibase.entity.base.RanniResult;
 import com.ymchen.ranniservice.api.service.ApiService;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -37,6 +39,15 @@ public class ApiController {
 
     @Value("${member.addr.city}")
     private String memberCity;
+
+
+    @ApiOperation("测试自定义缓存注解")
+    @PostMapping("testCacheAnnotaion")
+    @RanniCache(keyPrefix = "abc_123",keySuffix = "{#userDTO.userName}_{#userDTO.userPhone}",seconds = 40)
+    public Object testCacheAnnotaion(UserDTO userDTO) {
+        log.info("测试自定义缓存注解----------------");
+        return userDTO;
+    }
 
     @ApiOperation("测试从nacos获取配置")
     @GetMapping("getInfo")
