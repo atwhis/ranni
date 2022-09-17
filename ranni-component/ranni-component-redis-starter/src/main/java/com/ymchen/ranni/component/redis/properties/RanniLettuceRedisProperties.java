@@ -1,8 +1,10 @@
 package com.ymchen.ranni.component.redis.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
+@Data
 @ConfigurationProperties(prefix = "ranni.lettuce.redis")
 public class RanniLettuceRedisProperties {
 
