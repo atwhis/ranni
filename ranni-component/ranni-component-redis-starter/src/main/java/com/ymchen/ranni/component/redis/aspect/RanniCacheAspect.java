@@ -1,13 +1,11 @@
 package com.ymchen.ranni.component.redis.aspect;
 
 
-import com.sun.org.apache.xpath.internal.Arg;
 import com.ymchen.ranni.component.redis.annotation.RanniCache;
 import com.ymchen.ranni.component.redis.entity.NullCacheObject;
 import com.ymchen.ranni.component.redis.util.RedisLockUtil;
 import com.ymchen.ranni.component.redis.util.RedisUtil;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -19,9 +17,9 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Aspect
@@ -33,7 +31,8 @@ public class RanniCacheAspect {
     private RedisLockUtil redisLockUtil;
     @Autowired
     private RedisUtil redisUtil;
-    private static ExecutorService executor;
+    @Autowired
+    private ThreadPoolTaskExecutor executor;
 
     public static final TemplateParserContext TEMPLATE_PARSER_CONTEXT = new TemplateParserContext("{", "}");
     public static final ExpressionParser EXPRESSION_PARSER = new SpelExpressionParser();
@@ -72,24 +71,23 @@ public class RanniCacheAspect {
     }
 
     // redis 操作需要加锁???
-    //
+    // 1.key中文?key编码?
+    // 2.如何更新??主动删除缓存或更新?
+    // 3.namespace ??
     private void writeToRedis(String key, Object value, Long timeToLive) {
         if (redisLockUtil.lockWithLeaseTime(key + "_cache", 10L, TimeUnit.SECONDS)) {
             if (timeToLive > 0) {
-                /*executor.submit(() -> {
-
-                });*/
-
-                try {
-                    if (null == value) {
-                        redisUtil.set(key, new NullCacheObject(), timeToLive);
-                    } else {
-                        redisUtil.set(key, value, timeToLive);
+                executor.submit(() -> {
+                    try {
+                        if (null == value) {
+                            redisUtil.set(key, new NullCacheObject(), timeToLive);
+                        } else {
+                            redisUtil.set(key, value, timeToLive);
+                        }
+                    } catch (Exception ex) {
+                        log.error("缓存结果异常,key:{} , value:{}", key, value, ex);
                     }
-                } catch (Exception ex) {
-                    log.error("缓存结果异常,key:{} , value:{}", key, value, ex);
-                }
-
+                });
             }
         }
     }

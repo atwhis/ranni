@@ -13,6 +13,9 @@ spring:
     alibaba:
       seata:
         tx-service-group: test-tx-group
+  task:
+    execution:
+      thread-name-prefix: ranni-task-
 
 logging:
   level:
