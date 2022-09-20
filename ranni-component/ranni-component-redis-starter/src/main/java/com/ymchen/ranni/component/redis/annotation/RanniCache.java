@@ -9,13 +9,6 @@ import java.lang.annotation.*;
 public @interface RanniCache {
 
     /**
-     * redis命名空间
-     *
-     * @return
-     */
-//    int namespace() default 11111;
-
-    /**
      * key的前缀
      *
      * @return

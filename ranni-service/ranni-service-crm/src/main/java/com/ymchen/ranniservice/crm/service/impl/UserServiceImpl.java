@@ -1,12 +1,13 @@
 package com.ymchen.ranniservice.crm.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ymchen.rannibase.dto.crm.UserDTO;
 import com.ymchen.rannibase.entity.base.PageRequest;
 import com.ymchen.rannibase.entity.crm.User;
-import com.ymchen.rannibase.entity.stock.Stock;
 import com.ymchen.rannibase.util.MybatisPlusOrderUtil;
 import com.ymchen.ranniservice.crm.mapper.UserMapper;
 import com.ymchen.ranniservice.crm.service.UserService;
@@ -36,5 +37,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public List<User> getAllUser() {
         return baseMapper.selectList(null);
+    }
+
+    @Override
+    public UserDTO updateUser(UserDTO userDTO) {
+        UpdateWrapper<User> userUpdateWrapper = new UpdateWrapper<>();
+        userUpdateWrapper.eq("id",userDTO.getId())
+                .set("user_name", userDTO.getUserName())
+                .set("user_phone", userDTO.getUserPhone())
+                .set("user_address", userDTO.getUserAddress());
+        baseMapper.update(null, userUpdateWrapper);
+
+        return userDTO;
     }
 }

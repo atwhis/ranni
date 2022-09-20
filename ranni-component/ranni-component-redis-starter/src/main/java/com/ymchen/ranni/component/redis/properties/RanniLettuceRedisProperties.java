@@ -12,6 +12,11 @@ public class RanniLettuceRedisProperties {
      */
     private Boolean enable = true;
 
+    /**
+     * 缓存延迟删除时间,单位毫秒,默认800ms
+     */
+    private Long millSecondsToDelCache = 800L;
+
     public Boolean getEnable() {
         return enable;
     }

@@ -26,6 +26,7 @@ public class OSSController {
     private final OssService ossService;
 
 
+    @ApiOperation("hello")
     @RequestMapping("hello")
     public String hello() {
         return "hello";

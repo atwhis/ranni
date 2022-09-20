@@ -33,6 +33,16 @@
             <artifactId>ranni-component-log-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.ymchen</groupId>
+            <artifactId>ranni-component-doc-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ymchen</groupId>
+            <artifactId>ranni-component-redis-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

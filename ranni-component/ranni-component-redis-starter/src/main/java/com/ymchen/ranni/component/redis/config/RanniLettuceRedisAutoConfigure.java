@@ -3,6 +3,7 @@ package com.ymchen.ranni.component.redis.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.ymchen.ranni.component.redis.aspect.RanniCacheAspect;
 import com.ymchen.ranni.component.redis.properties.RanniLettuceRedisProperties;
 import com.ymchen.ranni.component.redis.util.RedisUtil;
@@ -32,6 +33,7 @@ public class RanniLettuceRedisAutoConfigure {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
         jackson2JsonRedisSerializer.setObjectMapper(mapper);
 
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
