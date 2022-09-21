@@ -8,6 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class RanniLettuceRedisProperties {
 
     /**
+     * namespace 前2位产品线 后3位项目编码
+     */
+    private int namespace = 11000;
+
+    /**
      * 是否开启Lettuce Redis
      */
     private Boolean enable = true;

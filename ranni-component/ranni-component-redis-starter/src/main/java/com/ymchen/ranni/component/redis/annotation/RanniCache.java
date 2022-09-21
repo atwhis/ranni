@@ -27,5 +27,5 @@ public @interface RanniCache {
      *
      * @return
      */
-    long seconds() default 10L;
+    long seconds() default 20L;
 }
