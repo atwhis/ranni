@@ -1,5 +1,6 @@
 package com.ymchen.rannibase.remote.fallback;
 
+import com.ymchen.rannibase.dto.crm.UserDTO;
 import com.ymchen.rannibase.entity.crm.User;
 import com.ymchen.rannibase.remote.UserRemoteService;
 import feign.hystrix.FallbackFactory;
@@ -24,6 +25,12 @@ public class UserRemoteServiceFallback implements FallbackFactory<UserRemoteServ
             @Override
             public User getById(Integer userId) {
                 log.error("调用获取用户ID为:{} 的信息失败", userId, throwable);
+                return null;
+            }
+
+            @Override
+            public UserDTO updateUser(UserDTO userDTO) {
+                log.error("更新用户信息失败 userDTO:{}", userDTO, throwable);
                 return null;
             }
         };

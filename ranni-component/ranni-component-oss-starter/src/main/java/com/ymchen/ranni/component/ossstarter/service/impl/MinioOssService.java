@@ -26,7 +26,7 @@ public class MinioOssService implements OssService {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(ranniOssProperties.getBucketName()).build());
             }
         } catch (Exception ex) {
-            log.error("create bucket error:{}", ex.getMessage());
+            log.error("create bucket error", ex);
         }
 
     }
@@ -40,7 +40,7 @@ public class MinioOssService implements OssService {
                     .object(newFilename).stream(inputStream, inputStream.available(), -1).build());
             return ranniOssProperties.getUrl() + "/" + ranniOssProperties.getBucketName() + "/" + newFilename;
         } catch (Exception ex) {
-            log.error("file upload error:{}", ex.getMessage());
+            log.error("file upload error", ex);
         }
         return null;
     }
@@ -51,7 +51,7 @@ public class MinioOssService implements OssService {
             return minioClient.getObject(
                     GetObjectArgs.builder().bucket(ranniOssProperties.getBucketName()).object(filename).build());
         } catch (Exception exception) {
-            log.error("download file error:{}", exception.getMessage());
+            log.error("download file error", exception);
         }
         return null;
     }

@@ -26,6 +26,7 @@ public class OSSController {
     private final OssService ossService;
 
 
+    @ApiOperation("hello")
     @RequestMapping("hello")
     public String hello() {
         return "hello";
@@ -38,7 +39,7 @@ public class OSSController {
         try {
             fileUrl = ossService.upload(file.getInputStream(), file.getOriginalFilename());
         } catch (Exception ex) {
-            log.error("upload error :{}", ex.getMessage());
+            log.error("upload error", ex);
         }
         return fileUrl;
     }

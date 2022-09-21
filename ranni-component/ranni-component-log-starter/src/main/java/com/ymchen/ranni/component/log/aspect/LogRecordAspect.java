@@ -31,7 +31,7 @@ public class LogRecordAspect {
 
 
     @Before(value = "logRecord()")
-    public void recordLog(JoinPoint joinPoint){
+    public void recordLog(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Object[] args = joinPoint.getArgs();
         String[] parameterNames = signature.getParameterNames();
@@ -46,7 +46,7 @@ public class LogRecordAspect {
                     .getValue(evaluationContext, String.class);
             log.info("logRecord:{}", logContent);
         } catch (Exception ex) {
-            log.error("logRecord error:{}", ex.getMessage());
+            log.error("logRecord error", ex);
         }
     }
 }

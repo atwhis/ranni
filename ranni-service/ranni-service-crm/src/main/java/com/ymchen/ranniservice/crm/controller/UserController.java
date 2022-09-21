@@ -1,9 +1,9 @@
 package com.ymchen.ranniservice.crm.controller;
 
 
+import com.ymchen.rannibase.dto.crm.UserDTO;
 import com.ymchen.rannibase.entity.base.PageRequest;
 import com.ymchen.rannibase.entity.crm.User;
-import com.ymchen.rannibase.entity.stock.Stock;
 import com.ymchen.ranniservice.crm.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +37,10 @@ public class UserController {
     @GetMapping("getAllUser")
     public List<User> getAllUser() {
         return userService.getAllUser();
+    }
+
+    @PostMapping("/updateUser")
+    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
+        return userService.updateUser(userDTO);
     }
 }

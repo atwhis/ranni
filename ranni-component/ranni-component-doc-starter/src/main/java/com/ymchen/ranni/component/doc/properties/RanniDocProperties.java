@@ -1,8 +1,9 @@
 package com.ymchen.ranni.component.doc.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-
+@Data
 @ConfigurationProperties(prefix = "ranni.doc")
 public class RanniDocProperties {
 
