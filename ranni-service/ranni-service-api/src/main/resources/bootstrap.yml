@@ -17,7 +17,3 @@ spring:
     execution:
       thread-name-prefix: ranni-task-
 
-logging:
-  level:
-    root: info
-
