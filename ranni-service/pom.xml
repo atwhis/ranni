@@ -24,4 +24,48 @@
         <module>ranni-service-stock</module>
     </modules>
 
+    <properties>
+        <ranni-component.version>0.0.1-SNAPSHOT</ranni-component.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-component-executor-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-component-datasource-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-component-doc-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-component-log-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-component-oss-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-component-redis-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-base</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 </project>
