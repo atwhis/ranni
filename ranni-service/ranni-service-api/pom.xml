@@ -40,6 +40,10 @@
             <groupId>com.ymchen</groupId>
             <artifactId>ranni-component-executor-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ymchen</groupId>
+            <artifactId>ranni-comonent-elastic-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

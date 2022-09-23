@@ -65,6 +65,11 @@
                 <artifactId>ranni-base</artifactId>
                 <version>${ranni-component.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-comonent-elastic-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
