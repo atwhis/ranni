@@ -4,14 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermsQueryBuilder;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,6 +108,33 @@ public class ESUtil {
         }
 
         return Boolean.FALSE;
+    }
+
+    /**
+     * 查询索引数据
+     *
+     * @param index
+     * @param field
+     * @param values
+     * @return
+     */
+    public Object queryIndexData(String index, String field, String values) {
+        SearchRequest searchRequest = new SearchRequest(index);
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        TermsQueryBuilder queryBuilder = QueryBuilders.termsQuery(field, values);
+        sourceBuilder.query(queryBuilder);
+        searchRequest.source(sourceBuilder);
+        SearchResponse response = null;
+        try {
+            response = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+            if (null != response.getHits() && null != response.getHits().getHits()) {
+                return response.getHits();
+            }
+        } catch (IOException ex) {
+            log.error("查询索引数据异常", ex);
+
+        }
+        return null;
     }
 
     /**

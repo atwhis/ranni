@@ -16,4 +16,6 @@ spring:
   task:
     execution:
       thread-name-prefix: ranni-task-
-
+  elasticsearch:
+    rest:
+      uris:http://localhost:9200
