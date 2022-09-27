@@ -14,6 +14,8 @@ import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermsQueryBuilder;
+import org.elasticsearch.script.ScriptType;
+import org.elasticsearch.script.mustache.SearchTemplateRequest;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -133,6 +135,31 @@ public class ESUtil {
         } catch (IOException ex) {
             log.error("查询索引数据异常", ex);
 
+        }
+        return null;
+    }
+
+    /**
+     * TODO
+     *
+     * @param script
+     * @param params
+     * @return
+     */
+    public Object searchTemplate(String script, Map<String, Object> params) {
+        SearchTemplateRequest searchTemplateRequest = new SearchTemplateRequest();
+        searchTemplateRequest.setScript(script);
+        searchTemplateRequest.setScriptType(ScriptType.STORED);
+        searchTemplateRequest.setScriptParams(params);
+        searchTemplateRequest.setRequest(new SearchRequest());
+
+        try {
+            SearchResponse response = restHighLevelClient.searchTemplate(searchTemplateRequest, RequestOptions.DEFAULT).getResponse();
+            if (null != response.getHits() && null != response.getHits().getHits()) {
+                return response.getHits();
+            }
+        } catch (IOException ex) {
+            log.error("模版搜索异常", ex);
         }
         return null;
     }

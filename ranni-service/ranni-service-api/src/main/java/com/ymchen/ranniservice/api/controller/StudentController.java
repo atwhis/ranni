@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @Slf4j
 @RequestMapping("student")
@@ -51,4 +53,15 @@ public class StudentController {
     }
 
 
+    /**
+     * TODO
+     * @param student
+     * @return
+     */
+    @ApiOperation("模版查询")
+    @GetMapping("mustacheQuery")
+    public Object mustacheQuery(Student student) {
+        Map<String, Object> map = (Map<String, Object>) GsonUtils.getInstance().fromJson(GsonUtils.getInstance().toJson(student), Map.class);
+        return esUtil.searchTemplate("mustahce/student.mustache", map);
+    }
 }
