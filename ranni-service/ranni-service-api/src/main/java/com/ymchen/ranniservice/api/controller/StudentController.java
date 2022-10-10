@@ -8,21 +8,35 @@ import com.ymchen.ranniservice.api.entity.Student;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Map;
 
 @RestController
 @Slf4j
 @RequestMapping("student")
 @RequiredArgsConstructor
+@Validated
 public class StudentController {
 
     private final StudentESDao studentESDao;
     private final ESUtil esUtil;
+
+
+    @ApiOperation("参数校验测试1")
+    @PostMapping("validTest1")
+    public Object validTest1(@Validated Student student) {
+        return student;
+    }
+
+    @ApiOperation("参数校验测试2")
+    @PostMapping("validTest2")
+    public Object validTest2(@Validated Student student, @RequestParam(value = "newAddress",required = false) @NotBlank(message = "新地址不能为空") String newAddress) {
+        student.setAddress(newAddress);
+        return student;
+    }
 
     @ApiOperation("新增学生索引")
     @PostMapping("add")
@@ -55,6 +69,7 @@ public class StudentController {
 
     /**
      * TODO
+     *
      * @param student
      * @return
      */
