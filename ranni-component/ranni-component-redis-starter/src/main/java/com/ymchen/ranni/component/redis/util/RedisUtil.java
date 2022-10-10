@@ -1,11 +1,12 @@
 package com.ymchen.ranni.component.redis.util;
 
+import com.ymchen.ranni.component.redis.properties.RanniLettuceRedisProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,8 +18,12 @@ public class RedisUtil {
 
     private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
+    private static final String SEPARATOR = ":";
+
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private RanniLettuceRedisProperties ranniLettuceRedisProperties;
 
     /**
      * 指定缓存失效时间
@@ -30,7 +35,7 @@ public class RedisUtil {
     public Boolean expire(String key, Long time) {
         try {
             if (time > 0) {
-                redisTemplate.expire(key, time, TimeUnit.SECONDS);
+                redisTemplate.expire(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, time, TimeUnit.SECONDS);
             }
             return true;
         } catch (Exception e) {
@@ -46,7 +51,7 @@ public class RedisUtil {
      * @return 时间(秒) 返回 0代表为永久有效
      */
     public Long getExpire(String key) {
-        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
+        return redisTemplate.getExpire(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, TimeUnit.SECONDS);
     }
 
     /**
@@ -57,7 +62,7 @@ public class RedisUtil {
      */
     public Boolean hasKey(String key) {
         try {
-            return redisTemplate.hasKey(key);
+            return redisTemplate.hasKey(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return false;
@@ -72,9 +77,13 @@ public class RedisUtil {
     public void del(String... key) {
         if (key != null && key.length > 0) {
             if (key.length == 1) {
-                redisTemplate.delete(key[0]);
+                redisTemplate.delete(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key[0]);
             } else {
-                redisTemplate.delete(Arrays.asList(key));
+                List<String> keys = new ArrayList<>();
+                for (String s : key) {
+                    keys.add(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + s);
+                }
+                redisTemplate.delete(keys);
             }
         }
     }
@@ -86,7 +95,7 @@ public class RedisUtil {
      * @return 值
      */
     public Object get(String key) {
-        return key == null ? null : redisTemplate.opsForValue().get(key);
+        return key == null ? null : redisTemplate.opsForValue().get(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key);
     }
 
     /**
@@ -98,7 +107,7 @@ public class RedisUtil {
      */
     public Boolean set(String key, Object value) {
         try {
-            redisTemplate.opsForValue().set(key, value);
+            redisTemplate.opsForValue().set(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, value);
             return true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -117,7 +126,7 @@ public class RedisUtil {
     public Boolean set(String key, Object value, Long time) {
         try {
             if (time > 0) {
-                redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+                redisTemplate.opsForValue().set(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, value, time, TimeUnit.SECONDS);
             } else {
                 set(key, value);
             }
@@ -139,7 +148,7 @@ public class RedisUtil {
         if (delta < 0) {
             throw new RuntimeException("递增因子必须大于0");
         }
-        return redisTemplate.opsForValue().increment(key, delta);
+        return redisTemplate.opsForValue().increment(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, delta);
     }
 
     /**
@@ -153,7 +162,7 @@ public class RedisUtil {
         if (delta < 0) {
             throw new RuntimeException("递减因子必须大于0");
         }
-        return redisTemplate.opsForValue().increment(key, -delta);
+        return redisTemplate.opsForValue().increment(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, -delta);
     }
 
     /**
@@ -164,7 +173,7 @@ public class RedisUtil {
      * @return 值
      */
     public Object hget(String key, String item) {
-        return redisTemplate.opsForHash().get(key, item);
+        return redisTemplate.opsForHash().get(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, item);
     }
 
     /**
@@ -174,7 +183,7 @@ public class RedisUtil {
      * @return 对应的多个键值
      */
     public Map<Object, Object> hmget(String key) {
-        return redisTemplate.opsForHash().entries(key);
+        return redisTemplate.opsForHash().entries(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key);
     }
 
     /**
@@ -186,7 +195,7 @@ public class RedisUtil {
      */
     public Boolean hmset(String key, Map<String, Object> map) {
         try {
-            redisTemplate.opsForHash().putAll(key, map);
+            redisTemplate.opsForHash().putAll(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, map);
             return true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -204,9 +213,9 @@ public class RedisUtil {
      */
     public Boolean hmset(String key, Map<String, Object> map, Long time) {
         try {
-            redisTemplate.opsForHash().putAll(key, map);
+            redisTemplate.opsForHash().putAll(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, map);
             if (time > 0) {
-                expire(key, time);
+                expire(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, time);
             }
             return true;
         } catch (Exception e) {
@@ -225,7 +234,7 @@ public class RedisUtil {
      */
     public Boolean hset(String key, String item, Object value) {
         try {
-            redisTemplate.opsForHash().put(key, item, value);
+            redisTemplate.opsForHash().put(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, item, value);
             return true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -244,9 +253,9 @@ public class RedisUtil {
      */
     public Boolean hset(String key, String item, Object value, Long time) {
         try {
-            redisTemplate.opsForHash().put(key, item, value);
+            redisTemplate.opsForHash().put(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, item, value);
             if (time > 0) {
-                expire(key, time);
+                expire(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, time);
             }
             return true;
         } catch (Exception e) {
@@ -262,7 +271,7 @@ public class RedisUtil {
      * @param item 项 可以使多个不能为 null
      */
     public void hdel(String key, Object... item) {
-        redisTemplate.opsForHash().delete(key, item);
+        redisTemplate.opsForHash().delete(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, item);
     }
 
     /**
@@ -273,7 +282,7 @@ public class RedisUtil {
      * @return true 存在 false不存在
      */
     public Boolean hHasKey(String key, String item) {
-        return redisTemplate.opsForHash().hasKey(key, item);
+        return redisTemplate.opsForHash().hasKey(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, item);
     }
 
     /**
@@ -285,7 +294,7 @@ public class RedisUtil {
      * @return Double
      */
     public Double hincr(String key, String item, Double by) {
-        return redisTemplate.opsForHash().increment(key, item, by);
+        return redisTemplate.opsForHash().increment(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, item, by);
     }
 
     /**
@@ -297,7 +306,7 @@ public class RedisUtil {
      * @return Double
      */
     public Double hdecr(String key, String item, Double by) {
-        return redisTemplate.opsForHash().increment(key, item, -by);
+        return redisTemplate.opsForHash().increment(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, item, -by);
     }
 
     /**
@@ -308,7 +317,7 @@ public class RedisUtil {
      */
     public Set<Object> sGet(String key) {
         try {
-            return redisTemplate.opsForSet().members(key);
+            return redisTemplate.opsForSet().members(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return null;
@@ -324,7 +333,7 @@ public class RedisUtil {
      */
     public Boolean sHasKey(String key, Object value) {
         try {
-            return redisTemplate.opsForSet().isMember(key, value);
+            return redisTemplate.opsForSet().isMember(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, value);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return false;
@@ -340,7 +349,7 @@ public class RedisUtil {
      */
     public Long sSet(String key, Object... values) {
         try {
-            return redisTemplate.opsForSet().add(key, values);
+            return redisTemplate.opsForSet().add(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, values);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return 0L;
@@ -357,9 +366,9 @@ public class RedisUtil {
      */
     public Long sSetAndTime(String key, Long time, Object... values) {
         try {
-            Long count = redisTemplate.opsForSet().add(key, values);
+            Long count = redisTemplate.opsForSet().add(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, values);
             if (time > 0) {
-                expire(key, time);
+                expire(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, time);
             }
             return count;
         } catch (Exception e) {
@@ -376,7 +385,7 @@ public class RedisUtil {
      */
     public Long sGetSetSize(String key) {
         try {
-            return redisTemplate.opsForSet().size(key);
+            return redisTemplate.opsForSet().size(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return 0L;
@@ -392,7 +401,7 @@ public class RedisUtil {
      */
     public Long setRemove(String key, Object... values) {
         try {
-            return redisTemplate.opsForSet().remove(key, values);
+            return redisTemplate.opsForSet().remove(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, values);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return 0L;
@@ -409,7 +418,7 @@ public class RedisUtil {
      */
     public List<Object> lGet(String key, Long start, Long end) {
         try {
-            return redisTemplate.opsForList().range(key, start, end);
+            return redisTemplate.opsForList().range(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, start, end);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return null;
@@ -424,7 +433,7 @@ public class RedisUtil {
      */
     public Long lGetListSize(String key) {
         try {
-            return redisTemplate.opsForList().size(key);
+            return redisTemplate.opsForList().size(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return 0L;
@@ -441,7 +450,7 @@ public class RedisUtil {
      */
     public Object lGetIndex(String key, Long index) {
         try {
-            return redisTemplate.opsForList().index(key, index);
+            return redisTemplate.opsForList().index(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, index);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return null;
@@ -457,7 +466,7 @@ public class RedisUtil {
      */
     public Boolean lSet(String key, Object value) {
         try {
-            redisTemplate.opsForList().rightPush(key, value);
+            redisTemplate.opsForList().rightPush(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, value);
             return true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -475,9 +484,9 @@ public class RedisUtil {
      */
     public Boolean lSet(String key, Object value, Long time) {
         try {
-            redisTemplate.opsForList().rightPush(key, value);
+            redisTemplate.opsForList().rightPush(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, value);
             if (time > 0) {
-                expire(key, time);
+                expire(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, time);
             }
             return true;
         } catch (Exception e) {
@@ -495,7 +504,7 @@ public class RedisUtil {
      */
     public Boolean lSet(String key, List<Object> value) {
         try {
-            redisTemplate.opsForList().rightPushAll(key, value);
+            redisTemplate.opsForList().rightPushAll(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, value);
             return true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -513,9 +522,9 @@ public class RedisUtil {
      */
     public Boolean lSet(String key, List<Object> value, Long time) {
         try {
-            redisTemplate.opsForList().rightPushAll(key, value);
+            redisTemplate.opsForList().rightPushAll(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, value);
             if (time > 0) {
-                expire(key, time);
+                expire(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, time);
             }
             return true;
         } catch (Exception e) {
@@ -534,7 +543,7 @@ public class RedisUtil {
      */
     public Boolean lUpdateIndex(String key, Long index, Object value) {
         try {
-            redisTemplate.opsForList().set(key, index, value);
+            redisTemplate.opsForList().set(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, index, value);
             return true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -552,7 +561,7 @@ public class RedisUtil {
      */
     public Long lRemove(String key, Long count, Object value) {
         try {
-            return redisTemplate.opsForList().remove(key, count, value);
+            return redisTemplate.opsForList().remove(ranniLettuceRedisProperties.getNamespace() + SEPARATOR + key, count, value);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return 0L;

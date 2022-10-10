@@ -2,6 +2,7 @@ package com.ymchen.ranniservice.crm.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ymchen.rannibase.dto.crm.UserDTO;
 import com.ymchen.rannibase.entity.base.PageRequest;
 import com.ymchen.rannibase.entity.crm.User;
 
@@ -13,4 +14,6 @@ public interface UserService extends IService<User> {
     List<User> getAllUser();
 
     IPage<User> getByPage(PageRequest pageRequest, User user);
+
+    UserDTO updateUser(UserDTO userDTO);
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 配置注意顺序 -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 去掉注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- 连接数据库参数 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3307/test" userId="root"
+                        password="root">
+        </jdbcConnection>
+        <!-- 类型转换:数字类型不强制转成BigDecimals -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- java模型（pojo）类配置 -->
+        <javaModelGenerator targetPackage="com.demo.crud.model"
+                            targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- mapper.xml参数配置 -->
+        <sqlMapGenerator targetPackage="com.demo.crud.mapper"
+                         targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <!-- dao生成参数配置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.demo.crud.dao" targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+        <!-- 数据库表配置 -->
+
+        <table tableName="t_real_name_report_data" domainObjectName="RealNameReportData"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+    </context>
+
+</generatorConfiguration>

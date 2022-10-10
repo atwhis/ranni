@@ -3,8 +3,6 @@ package com.ymchen.ranniservice.generator.controller;
 
 import com.ymchen.rannibase.constant.RanniApplicationConstant;
 import com.ymchen.rannibase.entity.base.PageRequest;
-import com.ymchen.rannibase.util.FileUtil;
-import com.ymchen.rannibase.util.GsonUtils;
 import com.ymchen.rannibase.util.RanniUtil;
 import com.ymchen.ranniservice.generator.entity.Column;
 import com.ymchen.ranniservice.generator.entity.GeneratorConfig;

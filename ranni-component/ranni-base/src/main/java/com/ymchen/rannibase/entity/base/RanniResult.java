@@ -9,41 +9,48 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class RanniResult implements Serializable {
+public class RanniResult<T> implements Serializable {
     private static final long serialVersionUID = 8589326587721432681L;
 
     private int code;
 
     private String message;
 
-    private Object object;
+    private T data;
 
-    public static RanniResult SUCCESS() {
+    public static <T> RanniResult<T> SUCCESS() {
         return new RanniResult(HttpStatus.OK.value(), null, null);
     }
 
-    public static RanniResult SUCCESS(Object object) {
+    public static <T> RanniResult<T> SUCCESS(Object object) {
         return new RanniResult(HttpStatus.OK.value(), null, object);
     }
 
-    public static RanniResult SUCCESS(String message, Object object) {
+    public static <T> RanniResult<T> SUCCESS(String message, T object) {
         return new RanniResult(HttpStatus.OK.value(), message, object);
     }
 
-    public static RanniResult ERROR() {
-        return new RanniResult(HttpStatus.OK.value(), null, null);
+    public static <T> RanniResult<T> SUCCESS(int code, String message, T object) {
+        return new RanniResult(code, message, object);
     }
 
-    public static RanniResult ERROR(Object object) {
-        return new RanniResult(HttpStatus.OK.value(), null, object);
+    public static <T> RanniResult<T> ERROR() {
+        return new RanniResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), null, null);
     }
 
-    public static RanniResult ERROR(String message) {
-        return new RanniResult(HttpStatus.OK.value(), message, null);
+    public static <T> RanniResult<T> ERROR(Object object) {
+        return new RanniResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), null, object);
     }
 
-    public static RanniResult ERROR(String message, Object object) {
-        return new RanniResult(HttpStatus.OK.value(), message, object);
+    public static <T> RanniResult<T> ERROR(String message) {
+        return new RanniResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
     }
 
+    public static <T> RanniResult<T> ERROR(String message, T object) {
+        return new RanniResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, object);
+    }
+
+    public static <T> RanniResult<T> ERROR(int code, String message, T object) {
+        return new RanniResult(code, message, object);
+    }
 }

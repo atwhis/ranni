@@ -1,0 +1,121 @@
+version: '2.2'
+services:
+  cerebro:
+    image: lmenezes/cerebro:0.8.5
+    container_name: cerebro
+    ports:
+      - "9100:9000"
+    command:
+      - "-Dhosts.0.host=http://es01:9200"
+    networks:
+      - mynet
+  kibana:
+    image: kibana:7.6.1
+    container_name: kibana
+    environment:
+      - I18N_LOCALE=zh-CN
+      - ELASTICSEARCH_HOSTS=http://es01:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - mynet
+  es01:
+    image: elasticsearch:7.6.1
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ~/docker/data/elasticsearch/es01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - mynet
+  es02:
+    image: elasticsearch:7.6.1
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ~/docker/data/elasticsearch/es02:/usr/share/elasticsearch/data
+    networks:
+      - mynet
+  es03:
+    image: elasticsearch:7.6.1
+    container_name: es03
+    environment:
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ~/docker/data/elasticsearch/es03:/usr/share/elasticsearch/data
+    networks:
+      - mynet
+  skywalking-oap:
+    image: apache/skywalking-oap-server:8.0.0-es7
+    container_name: skywalking-oap
+    restart: on-failure
+    links:
+      - es01:es01
+    depends_on:
+      - es01
+    ports:
+      - 11800:11800
+      - 12800:12800
+    environment:
+      - TZ=Asia/Shanghai
+      - SW_STORAGE=elasticsearch7
+      - SW_STORAGE_ES_CLUSTER_NODES=es01:9200
+    networks:
+      - mynet
+  skywalking-ui:
+    image: apache/skywalking-ui:8.0.0
+    container_name: skywalking-ui
+    restart: on-failure
+    depends_on:
+      - skywalking-oap
+    ports:
+      - 8999:8080
+    environment:
+      - TZ=Aisa/Shanghai
+      - SW_OAP_ADDRESS=skywalking-oap:12800
+    links:
+      - skywalking-oap
+    networks:
+      - mynet
+networks:
+  mynet:
+    external: true

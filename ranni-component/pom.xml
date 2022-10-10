@@ -21,6 +21,9 @@
         <module>ranni-component-doc-starter</module>
         <module>ranni-component-datasource-starter</module>
         <module>ranni-component-security-starter</module>
+        <module>ranni-component-oss-starter</module>
+        <module>ranni-component-executor-starter</module>
+        <module>ranni-comonent-elastic-starter</module>
     </modules>
 
 </project>

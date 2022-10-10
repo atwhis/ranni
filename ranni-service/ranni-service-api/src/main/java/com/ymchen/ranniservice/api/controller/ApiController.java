@@ -1,5 +1,11 @@
 package com.ymchen.ranniservice.api.controller;
 
+import com.ymchen.ranni.component.log.annotation.LogRecord;
+import com.ymchen.ranni.component.ossstarter.service.OssService;
+import com.ymchen.ranni.component.redis.annotation.RanniCache;
+import com.ymchen.ranni.component.redis.util.RedisUtil;
+import com.ymchen.rannibase.dto.api.UserOrderDTO;
+import com.ymchen.rannibase.dto.crm.UserDTO;
 import com.ymchen.rannibase.entity.base.RanniResult;
 import com.ymchen.ranniservice.api.service.ApiService;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -11,10 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
@@ -27,11 +30,24 @@ public class ApiController {
 
     private final ApiService apiService;
 
+    private final RedisUtil redisUtil;
+
+    private final OssService ossService;
+
     @Value("${member.base.name}")
     private String memberName;
 
     @Value("${member.addr.city}")
     private String memberCity;
+
+
+    @ApiOperation("测试自定义缓存注解")
+    @PostMapping("testCacheAnnotaion")
+    @RanniCache(keyPrefix = "abc_123",keySuffix = "{#userDTO.userName}_{#userDTO.userPhone}",seconds = 40)
+    public Object testCacheAnnotaion(UserDTO userDTO) {
+        log.info("测试自定义缓存注解----------------");
+        return userDTO;
+    }
 
     @ApiOperation("测试从nacos获取配置")
     @GetMapping("getInfo")
@@ -57,7 +73,7 @@ public class ApiController {
         return apiService.getUserOrders(userId);
     }
 
-    @GlobalTransactional
+    //@GlobalTransactional
     @GetMapping("createOrder")
     @ApiOperation("创建订单-正常事务")
     @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "Long"),
@@ -75,6 +91,36 @@ public class ApiController {
     public Object createOrderAndDeductRollback(@RequestParam("userId") Long userId, @RequestParam("goodsNo") String goodsNo) {
         final String orderNo = apiService.createOrderAndDeduct(userId, goodsNo);
         return RanniResult.SUCCESS(orderNo);
+    }
+
+    @GetMapping("flow")
+    @ApiOperation("测试流控")
+    public Object testFlowControl() {
+        return "flow control";
+    }
+
+    @GetMapping("degrade")
+    @ApiOperation("测试降级")
+    public Object testDegrade() {
+        return "degrade";
+    }
+
+    @ApiOperation("skywalking链路测试")
+    @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "Long")
+    @GetMapping("skywalkingTest")
+    public Object skywalkingTest(@RequestParam("userId") Long userId) {
+        redisUtil.set("hello", "world", 60L);
+        final UserOrderDTO userOrders = apiService.getUserOrders(userId);
+        redisUtil.get("hello");
+        return userOrders;
+    }
+
+    @PostMapping("logTest")
+    @ApiOperation("测试日志记录")
+    @LogRecord(content = "日志和链路测试controller,用户id：{#userOrderDTO.userId},用户名：{#userOrderDTO.userName}")
+    public Object testLogRecord(UserOrderDTO userOrderDTO) {
+        apiService.logTest(userOrderDTO);
+        return userOrderDTO;
     }
 
 }

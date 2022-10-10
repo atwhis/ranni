@@ -5,7 +5,9 @@ services:
     container_name: redis4.0
     ports:
       - 6379:6379
-    restart: always
+    networks:
+      - mynet
+    restart: on-failure
   mysql:
     image: mysql:5.7
     container_name: mysql5.7
@@ -15,12 +17,14 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
-    restart: always
+    networks:
+      - mynet
+    restart: on-failure
   nacos:
     image: nacos/nacos-server:2.0.2
     container_name: nacos
     hostname: nacos
-    restart: always
+    restart: on-failure
     depends_on:
       - mysql
     links:
@@ -43,22 +47,47 @@ services:
       - "8848:8848"
       - "9848:9848"
       - "9849:9849"
-  seata:
-    image: seataio/seata-server:1.3.0
-    hostname: seata
-    container_name: seata
-    depends_on:
-      - nacos
-      - mysql
-    links:
-      - nacos:nacos
-      - mysql:mysql
-    ports:
-      - "8091:8091"
-    environment:
-      SEATA_PORT: 8091
-      SEATA_IP: 10.44.1.133
-    volumes:
-      - ../../doc/seata/conf/registry.conf:/seata-server/resources/registry.conf
-      - ../../doc/seata/conf/file.conf:/seata-server/resources/file.conf
-      - ~/docker/logs/seata/:/root/logs/seata
+    networks:
+      - mynet
+#  seata:
+#    image: seataio/seata-server:1.3.0
+#    hostname: seata
+#    container_name: seata
+#    restart: on-failure
+#    depends_on:
+#      - nacos
+#      - mysql
+#    links:
+#      - nacos:nacos
+#      - mysql:mysql
+#    ports:
+#      - "8091:8091"
+#    networks:
+#      - mynet
+#    environment:
+#      SEATA_PORT: 8091
+#      SEATA_IP: 10.44.1.133
+#      SEATA_CONFIG_NAME: file:/root/seata-config/registry
+#    volumes:
+#      - ../../doc/seata/conf/:/root/seata-config
+##      - ../../doc/seata/conf/registry.conf:/seata-server/resources/registry.conf
+##      - ../../doc/seata/conf/file.conf:/seata-server/resources/file.conf
+#      - ~/docker/logs/seata/:/root/logs/seata
+#  sentinel-dashboard:
+#    image: sentinel:latest
+#    container_name: sentinel-dashboard
+#    environment:
+#      PASSWORD: 123456
+#    depends_on:
+#      - nacos
+#    volumes:
+#      - ~/docker/logs/sentinel:/opt/logs
+#    ports:
+#      - 8801:8080
+#    networks:
+#      - mynet
+#    restart: on-failure
+
+networks:
+  mynet:
+    external: true
