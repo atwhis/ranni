@@ -1,6 +1,7 @@
 package com.ymchen.ranniservice.api.entity;
 
 
+import com.ymchen.rannibase.annotations.IsPhone;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -32,6 +33,9 @@ public class Student {
     @NotBlank
     @Field(type = FieldType.Text)
     private String address;
+
+    @IsPhone
+    private String phone;
 
 //    @Field(type = FieldType.Date,format = DateFormat.basic_date)
 //    private Date birthdate;

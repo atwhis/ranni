@@ -3,6 +3,8 @@ package com.ymchen.rannibase.util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 
@@ -10,6 +12,18 @@ import java.util.stream.IntStream;
 public abstract class RanniUtil {
 
     private static final String UNKNOW = "unknown";
+
+    /**
+     * 正则验证
+     * @param regex 表达式
+     * @param value 待验证的值
+     * @return
+     */
+    public static boolean match(String regex, String value) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(value);
+        return matcher.matches();
+    }
 
     /**
      * 驼峰转下划线
