@@ -6,7 +6,7 @@ services:
     ports:
       - "9100:9000"
     command:
-      - "-Dhosts.0.host=http://es01:9200"
+      - -Dhosts.0.host=http://es01:9200
     networks:
       - mynet
   kibana:
@@ -20,7 +20,7 @@ services:
     networks:
       - mynet
   es01:
-    image: elasticsearch:7.6.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
     container_name: es01
     environment:
       - node.name=es01
@@ -43,7 +43,7 @@ services:
     networks:
       - mynet
   es02:
-    image: elasticsearch:7.6.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
     container_name: es02
     environment:
       - node.name=es02
@@ -64,7 +64,7 @@ services:
     networks:
       - mynet
   es03:
-    image: elasticsearch:7.6.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
     container_name: es03
     environment:
       - node.name=es03
