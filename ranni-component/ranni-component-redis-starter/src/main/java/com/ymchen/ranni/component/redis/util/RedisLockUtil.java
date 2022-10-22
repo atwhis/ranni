@@ -66,7 +66,10 @@ public class RedisLockUtil {
      */
     public void unlock(String lockName) {
         try {
-            redissonClient.getLock(lockName).unlock();
+            RLock lock = redissonClient.getLock(lockName);
+            if (lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
             LOGGER.info("unlock distributor lock success,lockName={}", lockName);
         } catch (Exception ex) {
             LOGGER.error("unlock distributor lock exception,lockName=" + lockName, ex);
