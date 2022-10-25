@@ -1,6 +1,23 @@
 {
-  "query": {"multi_match": {
-    "query": "{{name}},{{address}}",
-    "fields": ["name","address"]
-  }}
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "name": "{{name}}"
+          }
+        },
+        {
+          "match": {
+            "address": "{{address}}"
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "_id": "desc"
+    }
+  ]
 }

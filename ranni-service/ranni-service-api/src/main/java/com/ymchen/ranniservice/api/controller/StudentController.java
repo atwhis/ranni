@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -33,7 +34,7 @@ public class StudentController {
 
     @ApiOperation("参数校验测试2")
     @PostMapping("validTest2")
-    public Object validTest2(@Validated Student student, @RequestParam(value = "newAddress",required = false) @NotBlank(message = "新地址不能为空") String newAddress) {
+    public Object validTest2(@Validated Student student, @RequestParam(value = "newAddress", required = false) @NotBlank(message = "新地址不能为空") String newAddress) {
         student.setAddress(newAddress);
         return student;
     }
@@ -68,15 +69,15 @@ public class StudentController {
 
 
     /**
-     * TODO
+     * mustache 查询
      *
      * @param student
      * @return
      */
     @ApiOperation("模版查询")
     @GetMapping("mustacheQuery")
-    public Object mustacheQuery(Student student) {
-        Map<String, Object> map = (Map<String, Object>) GsonUtils.getInstance().fromJson(GsonUtils.getInstance().toJson(student), Map.class);
-        return esUtil.searchTemplate("mustahce/student.mustache", map);
+    public Object mustacheQuery(Student student) throws IOException {
+        String scriptPath = "mustache/student.mustache";
+        return esUtil.mustacheSearch(scriptPath, student);
     }
 }

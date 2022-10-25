@@ -43,6 +43,7 @@
         <minio.version>8.4.3</minio.version>
         <mybatis-generator-maven-plugin.version>1.4.0</mybatis-generator-maven-plugin.version>
         <mysql-connector-java.version>8.0.25</mysql-connector-java.version>
+        <fastjson.version>2.0.12</fastjson.version>
     </properties>
 
     <dependencyManagement>

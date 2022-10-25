@@ -1,6 +1,8 @@
 package com.ymchen.ranni.component.elastic.util;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
@@ -18,8 +20,13 @@ import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.script.mustache.SearchTemplateRequest;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -140,26 +147,31 @@ public class ESUtil {
     }
 
     /**
-     * TODO
+     * mustache search
      *
-     * @param script
-     * @param params
+     * @param scriptPath
+     * @param object
      * @return
      */
-    public Object searchTemplate(String script, Map<String, Object> params) {
-        SearchTemplateRequest searchTemplateRequest = new SearchTemplateRequest();
-        searchTemplateRequest.setScript(script);
-        searchTemplateRequest.setScriptType(ScriptType.STORED);
-        searchTemplateRequest.setScriptParams(params);
-        searchTemplateRequest.setRequest(new SearchRequest());
+    public Object mustacheSearch(String scriptPath, Object object) {
 
-        try {
-            SearchResponse response = restHighLevelClient.searchTemplate(searchTemplateRequest, RequestOptions.DEFAULT).getResponse();
-            if (null != response.getHits() && null != response.getHits().getHits()) {
-                return response.getHits();
+        String scriptContent = readContentFromResource(scriptPath).trim();
+        if (StringUtils.isNotBlank(scriptContent) && null != object) {
+            Map<String, Object> params = (Map<String, Object>) JSONObject.parseObject(JSONObject.toJSONString(object), Map.class);
+            SearchTemplateRequest searchTemplateRequest = new SearchTemplateRequest();
+            searchTemplateRequest.setScript(scriptContent);
+            searchTemplateRequest.setScriptType(ScriptType.INLINE);
+            searchTemplateRequest.setScriptParams(params);
+            searchTemplateRequest.setRequest(new SearchRequest());
+
+            try {
+                SearchResponse response = restHighLevelClient.searchTemplate(searchTemplateRequest, RequestOptions.DEFAULT).getResponse();
+                if (null != response.getHits() && null != response.getHits().getHits()) {
+                    return response.getHits();
+                }
+            } catch (IOException ex) {
+                log.error("模版搜索异常", ex);
             }
-        } catch (IOException ex) {
-            log.error("模版搜索异常", ex);
         }
         return null;
     }
@@ -180,5 +192,29 @@ public class ESUtil {
             return Boolean.FALSE;
         }
         return Boolean.TRUE;
+    }
+
+    /**
+     * @param resourcePath
+     * @return
+     */
+    private String readContentFromResource(String resourcePath) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            Resource resource = new ClassPathResource(resourcePath);
+            InputStream is = resource.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String data = null;
+            while ((data = br.readLine()) != null) {
+                sb.append(data);
+            }
+            br.close();
+            isr.close();
+            is.close();
+        } catch (Exception ex) {
+            log.error("read content from {} error", resourcePath, ex);
+        }
+        return sb.toString();
     }
 }

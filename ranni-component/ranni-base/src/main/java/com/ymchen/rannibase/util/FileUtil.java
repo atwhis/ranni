@@ -4,6 +4,8 @@ import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.FileSystemUtils;
@@ -15,13 +17,35 @@ import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/**
- * @author MrBird
- */
+
 @Slf4j
-public abstract class FileUtil {
+public  class FileUtil {
 
     private static final int BUFFER = 1024 * 8;
+
+    /**
+     * @param resourcePath
+     * @return
+     */
+    public static String readContentFromResource(String resourcePath) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            Resource resource = new ClassPathResource(resourcePath);
+            InputStream is = resource.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String data = null;
+            while ((data = br.readLine()) != null) {
+                sb.append(data);
+            }
+            br.close();
+            isr.close();
+            is.close();
+        } catch (Exception ex) {
+            log.error("read content from {} error", resourcePath, ex);
+        }
+        return sb.toString();
+    }
 
     /**
      * 压缩文件或目录

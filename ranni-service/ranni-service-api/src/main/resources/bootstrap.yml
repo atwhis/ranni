@@ -13,9 +13,4 @@ spring:
     alibaba:
       seata:
         tx-service-group: test-tx-group
-  task:
-    execution:
-      thread-name-prefix: ranni-task-
-  elasticsearch:
-    rest:
-      uris:http://localhost:9200
+
