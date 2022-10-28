@@ -22,7 +22,7 @@
         <module>ranni-component-datasource-starter</module>
         <module>ranni-component-oss-starter</module>
         <module>ranni-component-executor-starter</module>
-        <module>ranni-comonent-elastic-starter</module>
+        <module>ranni-component-elastic-starter</module>
     </modules>
 
     <dependencyManagement>

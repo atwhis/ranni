@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ranni-comonent-elastic-starter</artifactId>
+    <artifactId>ranni-component-elastic-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ranni-component-elastic-starter</name>
