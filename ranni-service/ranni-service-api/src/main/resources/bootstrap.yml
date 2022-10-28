@@ -14,3 +14,14 @@ spring:
       seata:
         tx-service-group: test-tx-group
 
+xxl:
+  job:
+    access-token:
+    executor:
+      port: 9999
+      log-retention-days: 1
+      appname: ranni-xxljob-sample
+      log-path: log/ranni-service-api
+    admin:
+      address: http://127.0.0.1:9911/xxl-job-admin
+    enable: true

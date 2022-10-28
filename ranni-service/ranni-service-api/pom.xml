@@ -9,7 +9,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.ymchen</groupId>
     <artifactId>ranni-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ranni-api</name>
@@ -42,7 +41,11 @@
         </dependency>
         <dependency>
             <groupId>com.ymchen</groupId>
-            <artifactId>ranni-comonent-elastic-starter</artifactId>
+            <artifactId>ranni-component-elastic-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ymchen</groupId>
+            <artifactId>ranni-component-xxl-job-starter</artifactId>
         </dependency>
     </dependencies>
 

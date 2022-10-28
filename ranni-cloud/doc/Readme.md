@@ -24,4 +24,9 @@ docker run -p 9000:9000 -p 9090:9090 -d --name minio \
   minio/minio server /data --console-address ":9090" -address ":9000"
 ```
 
-
+#### xxl-job-admin
+```dockerfile
+docker run --network=mynet 
+-e PARAMS="--spring.datasource.url=jdbc:mysql://mysql-master:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=root" 
+-p 9911:8080 -v ~/docker/logs/xxl-job/:/data/applogs --name xxl-job-admin  -d xuxueli/xxl-job-admin:2.3.0
+```
