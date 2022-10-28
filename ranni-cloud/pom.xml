@@ -44,6 +44,7 @@
         <mybatis-generator-maven-plugin.version>1.4.0</mybatis-generator-maven-plugin.version>
         <mysql-connector-java.version>8.0.25</mysql-connector-java.version>
         <fastjson.version>2.0.12</fastjson.version>
+        <xxl-job.version>2.3.0</xxl-job.version>
     </properties>
 
     <dependencyManagement>
