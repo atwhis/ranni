@@ -1,3 +1,3 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.ymchen.ranni.component.ossstarter.config.RanniOssAutoConfig
+com.ymchen.ranni.component.oss.config.RanniOssAutoConfig

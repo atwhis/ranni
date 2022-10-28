@@ -1,7 +1,7 @@
 package com.ymchen.ranniservice.api.controller;
 
-import com.ymchen.ranni.component.ossstarter.service.OssService;
-import com.ymchen.ranni.component.ossstarter.util.OssFileUtil;
+import com.ymchen.ranni.component.oss.service.OssService;
+import com.ymchen.ranni.component.oss.util.OssFileUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;

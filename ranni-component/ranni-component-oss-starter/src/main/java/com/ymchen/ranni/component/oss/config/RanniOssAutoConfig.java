@@ -1,10 +1,10 @@
-package com.ymchen.ranni.component.ossstarter.config;
+package com.ymchen.ranni.component.oss.config;
 
 
-import com.ymchen.ranni.component.ossstarter.properties.RanniOssProperties;
-import com.ymchen.ranni.component.ossstarter.service.OssService;
-import com.ymchen.ranni.component.ossstarter.service.impl.MinioOssService;
-import com.ymchen.ranni.component.ossstarter.service.impl.QiniuOssService;
+import com.ymchen.ranni.component.oss.properties.RanniOssProperties;
+import com.ymchen.ranni.component.oss.service.OssService;
+import com.ymchen.ranni.component.oss.service.impl.MinioOssService;
+import com.ymchen.ranni.component.oss.service.impl.QiniuOssService;
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;

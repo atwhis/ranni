@@ -1,7 +1,7 @@
 package com.ymchen.ranniservice.api.controller;
 
 import com.ymchen.ranni.component.log.annotation.LogRecord;
-import com.ymchen.ranni.component.ossstarter.service.OssService;
+import com.ymchen.ranni.component.oss.service.OssService;
 import com.ymchen.ranni.component.redis.annotation.RanniCache;
 import com.ymchen.ranni.component.redis.util.RedisUtil;
 import com.ymchen.rannibase.dto.api.UserOrderDTO;

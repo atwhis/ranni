@@ -1,4 +1,4 @@
-package com.ymchen.ranni.component.ossstarter.properties;
+package com.ymchen.ranni.component.oss.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

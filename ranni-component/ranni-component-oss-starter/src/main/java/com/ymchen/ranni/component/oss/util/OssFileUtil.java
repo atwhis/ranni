@@ -1,4 +1,4 @@
-package com.ymchen.ranni.component.ossstarter.util;
+package com.ymchen.ranni.component.oss.util;
 
 import org.apache.commons.lang3.StringUtils;
 

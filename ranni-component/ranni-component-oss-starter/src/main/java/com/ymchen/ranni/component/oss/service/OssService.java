@@ -1,4 +1,4 @@
-package com.ymchen.ranni.component.ossstarter.service;
+package com.ymchen.ranni.component.oss.service;
 
 import java.io.InputStream;
 
