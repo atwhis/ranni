@@ -17,15 +17,15 @@
 - ~~基于freemarker，实现基础代码生成~~
 - ~~skywalking链路监控，agent采集不用修改代码，docker环境搭建~~
 - log-starter模块
-    - datapermission数据权限统一处理
     - appender功能，集成logstash或filebeat发送到ELK
+- ~~logstater模块，datapermission数据权限统一处理~~
 
 - mq-starter（rabbitmq）
-- elastic-starter
+- ~~elastic-starter~~
 - sentinel功能完善
     - 集群限流，需要搭建sentinel token server
     - Sentinel-dashboard规则修改和nacos的同步
-- 分布式调度(elastic-job？ xxl-job？)
+- ~~集成xxl-job~~
 - security功能
     - security-starter模块
     - oauth2、jwt
@@ -56,8 +56,12 @@ ranni
     ├── ranni-base -- 基础pom依赖、DTO、UTIL
     ├── ranni-component-datasource-starter -- 数据库starter
     ├── ranni-component-doc-starter -- 文档starter
+    ├── ranni-component-elastic-starter -- es搜索-starter
+    ├── ranni-component-executor-starter -- 单机定时任务-starter
     ├── ranni-component-log-starter -- 日志starter
-    └── ranni-component-redis-starter -- 缓存starter
+    ├── ranni-component-oss-starter -- 对象存储starter
+    ├── ranni-component-redis-starter -- 缓存starter
+    └── ranni-component-xxljob-starter -- 分布式调度starter
 └── ranni-service -- 后台服务
     ├── ranni-code-generator -- 代码生成模块
     ├── ranni-gateway -- 网关

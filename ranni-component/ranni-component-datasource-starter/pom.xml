@@ -14,7 +14,17 @@
     <name>ranni-component-datasource-starter</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <ranni.version>0.0.1-SNAPSHOT</ranni.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>com.ymchen</groupId>
+            <artifactId>ranni-base</artifactId>
+            <version>${ranni.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>

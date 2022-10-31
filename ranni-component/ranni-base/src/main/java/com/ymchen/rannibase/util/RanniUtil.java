@@ -1,5 +1,6 @@
 package com.ymchen.rannibase.util;
 
+import com.ymchen.rannibase.bo.CurrentUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,8 +14,16 @@ public abstract class RanniUtil {
 
     private static final String UNKNOW = "unknown";
 
+    public static CurrentUser getCurrentUser() {
+        //TODO get currentUser from authentication
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.setDeptIds("1,2,3");
+        return currentUser;
+    }
+
     /**
      * 正则验证
+     *
      * @param regex 表达式
      * @param value 待验证的值
      * @return
