@@ -75,6 +75,11 @@
                 <artifactId>ranni-component-xxl-job-starter</artifactId>
                 <version>${ranni-component.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ymchen</groupId>
+                <artifactId>ranni-component-kafka-starter</artifactId>
+                <version>${ranni-component.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

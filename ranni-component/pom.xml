@@ -24,6 +24,7 @@
         <module>ranni-component-executor-starter</module>
         <module>ranni-component-elastic-starter</module>
         <module>ranni-component-xxljob-starter</module>
+        <module>ranni-component-kafka-starter</module>
     </modules>
 
     <dependencyManagement>
