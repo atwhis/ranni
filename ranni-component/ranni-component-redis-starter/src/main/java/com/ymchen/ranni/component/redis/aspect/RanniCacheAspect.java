@@ -133,6 +133,10 @@ public class RanniCacheAspect {
         String lockKey = key + LOCK_KEY_SUFFIX;
         redisLockUtil.lockWithWatchdog(lockKey);
         try {
+            Object cacheObj = getFromRedis(key);
+            if (null != cacheObj) {
+                return cacheObj;
+            }
             result = pjp.proceed();
             writeToRedis(key, result, timeToLive);
         } finally {
