@@ -9,4 +9,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface KafkaProducer {
     String topic();
+
+    String key() default "";
 }

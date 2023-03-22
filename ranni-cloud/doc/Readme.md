@@ -30,3 +30,28 @@ docker run --network=mynet
 -e PARAMS="--spring.datasource.url=jdbc:mysql://mysql-master:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=root" 
 -p 9911:8080 -v ~/docker/logs/xxl-job/:/data/applogs --name xxl-job-admin  -d xuxueli/xxl-job-admin:2.3.0
 ```
+
+#### kafka
+```dockerfile
+#查看kafka主题列表
+kafka-topics.sh  --bootstrap-server localhost:9092 --list
+#创建主题 orderStatus 分区1副本2
+kafka-topics.sh  --bootstrap-server localhost:9092 --create --partitions 2 --replication-factor 1 --topic orderStatus
+#查看topic详情
+kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic orderStatus
+#删除topic
+kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic orderStatus
+
+#发送消息
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic orderStatus
+#发送消息的其他参数
+--property "parse.key=true" --property "key.separator=:"
+
+
+#消费消息
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic orderStatus
+#消费消息的其他参数
+--from-beginning 从头开始消费
+--group 指定消费者组名称
+
+```
