@@ -27,4 +27,3 @@ spring:
 #      key-deserializer:
 #      value-deserializer:
       group-id: ranni-service-api
-

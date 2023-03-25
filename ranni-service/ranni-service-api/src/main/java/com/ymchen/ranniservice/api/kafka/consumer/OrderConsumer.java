@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class OrderConsumer {
 
 
-    @KafkaListener(topics = "orderStatus",groupId = "ranni-service-api")
+    @KafkaListener(topics = "orderStatus")
     public void orderStatusChange(ConsumerRecord record) {
         log.info("consumer---> topic:{},value:{}", record.topic(), record.value());
     }

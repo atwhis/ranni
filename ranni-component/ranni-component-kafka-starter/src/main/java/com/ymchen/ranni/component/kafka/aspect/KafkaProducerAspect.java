@@ -30,6 +30,7 @@ public class KafkaProducerAspect {
     }
 
 
+    //TODO 是否有比接口定义再注入更好的方式?
     @Around(value = "kafkaProducer()")
     public void msgSend(ProceedingJoinPoint pjp) {
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
@@ -43,12 +44,12 @@ public class KafkaProducerAspect {
             kafkaTemplate.send(kafkaProducer.topic(), key, args[0]).addCallback(new SuccessCallback() {
                 @Override
                 public void onSuccess(Object result) {
-                    log.error("消息发送成功 topic:{} , key:{} , 消息详情:{}", kafkaProducer.topic(), kafkaProducer.key(), result);
+                    log.error("消息发送成功 topic:{}, key:{}, 消息详情:{}", kafkaProducer.topic(), kafkaProducer.key(), result);
                 }
             }, new FailureCallback() {
                 @Override
                 public void onFailure(Throwable ex) {
-                    log.error("消息发送异常 topic:{} , key:{} , 异常信息:{}", kafkaProducer.topic(), kafkaProducer.key(), ex);
+                    log.error("消息发送异常 topic:{}, key:{}, 异常信息:{}", kafkaProducer.topic(), kafkaProducer.key(), ex);
                 }
             });
         }
